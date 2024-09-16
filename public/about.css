@@ -1,0 +1,77 @@
+.about header {
+    background-color: seagreen;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    margin-left: -1.5em;
+    margin-right: -1.5em;
+}
+
+.about header h1 {
+    margin: 0;
+    font-size: 28px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.about section {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+.about section h2 {
+    margin-top: 0;
+    color: #333;
+    font-size: 24px;
+}
+
+.about ul {
+    padding-left: 20px;
+    font-size: 18px;
+}
+
+.about ul li {
+    margin-bottom: 10px;
+}
+
+/* .about footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+}
+
+.about footer p {
+    margin: 0;
+} */
+
+.about button {
+    padding: 12px 24px;
+    background-color: seagreen;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.about button:hover {
+    background-color: #45a049;
+}
