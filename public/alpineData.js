@@ -648,6 +648,11 @@ document.addEventListener('alpine:init', () => {
                 this.comparisonResult = true
             },
 
+            openAnalysis() {
+                this.analysisPage = true;
+                this.homepage = false
+            },
+
 
 
             /* TASK SHCEDULER
@@ -1064,15 +1069,6 @@ document.addEventListener('alpine:init', () => {
 
             openProfile() {
                 this.profilePage = true;
-                this.homepage = false
-            },
-
-
-            /* Profile
-            -------------------------------------------------------------------------------------------------------------------------------------------------------- */
-
-            openAnalysis() {
-                this.analysisPage = true;
                 this.homepage = false
             },
 
