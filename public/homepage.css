@@ -199,7 +199,7 @@
 .homePageFeatureItem::before {
     content: '★';
     font-size: 24px;
-    color: #FFD700;
+    color: #fff700;
     display: block;
     margin-bottom: 10px;
     opacity: 0.7;

@@ -55,3 +55,16 @@
 .analysisPage button:hover {
     background-color: #4CAF50; /* Even darker shade for hover */
 }
+
+.country{
+    display: flex;
+    flex: 1;
+    border: 1px solid #ccc; 
+}
+
+.country div {
+    flex: 1;
+    margin: 5px;
+    padding: 10px;
+    text-align: center;
+}

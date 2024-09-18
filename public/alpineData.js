@@ -240,20 +240,33 @@ document.addEventListener('alpine:init', () => {
             /* ANALYSIS PAGE
             -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
             region: '',
-            crop: '',
-            regionAngola: 0,
-            regionBotswana: 0,
-            regionEswatini: 0,
-            regionLesotho: 0,
-            regionMalawi: 0,
-            regionMozambique: 0,
-            regionSouthAfrica: 0,
-            regionTanzania: 0,
-            regionZambia: 0,
-            regionZimbabwe: 0,
-            cropMaize: 0,
-            cropRice: 0,
-            cropWheat: 0,
+            cropType: '',
+            production: '',
+            regionAngola: '',
+            regionBotswana: '',
+            regionEswatini: '',
+            regionLesotho: '',
+            regionMalawi: '',
+            regionMozambique: '',
+            regionSouthAfrica: '',
+            regionTanzania: '',
+            regionZambia: '',
+            regionZimbabwe: '',
+            cropMaize: '',
+            cropRice: '',
+            cropWheat: '',
+            temperature: '',
+            rainfall: '',
+            humidity: '',
+            predictedYield: '',
+            year: '',
+            selectedYear: '',
+            yieldProduction: null,
+            yieldShow: 0,
+            fieldSize: '',
+
+
+
 
             updateRegion() {
                 // Reset all region values to 0
@@ -268,38 +281,18 @@ document.addEventListener('alpine:init', () => {
                 this.regionZambia = 0;
                 this.regionZimbabwe = 0;
 
-                // Set the selected region's value to 1
+
                 switch (this.region) {
-                    case 'Angola':
-                        this.regionAngola = 1;
-                        break;
-                    case 'Botswana':
-                        this.regionBotswana = 1;
-                        break;
-                    case 'Eswatini':
-                        this.regionEswatini = 1;
-                        break;
-                    case 'Lesotho':
-                        this.regionLesotho = 1;
-                        break;
-                    case 'Malawi':
-                        this.regionMalawi = 1;
-                        break;
-                    case 'Mozambique':
-                        this.regionMozambique = 1;
-                        break;
-                    case 'South Africa':
-                        this.regionSouthAfrica = 1;
-                        break;
-                    case 'Tanzania':
-                        this.regionTanzania = 1;
-                        break;
-                    case 'Zambia':
-                        this.regionZambia = 1;
-                        break;
-                    case 'Zimbabwe':
-                        this.regionZimbabwe = 1;
-                        break;
+                    case 'Angola': this.regionAngola = 1; break;
+                    case 'Botswana': this.regionBotswana = 1; break;
+                    case 'Eswatini': this.regionEswatini = 1; break;
+                    case 'Lesotho': this.regionLesotho = 1; break;
+                    case 'Malawi': this.regionMalawi = 1; break;
+                    case 'Mozambique': this.regionMozambique = 1; break;
+                    case 'South Africa': this.regionSouthAfrica = 1; break;
+                    case 'Tanzania': this.regionTanzania = 1; break;
+                    case 'Zambia': this.regionZambia = 1; break;
+                    case 'Zimbabwe': this.regionZimbabwe = 1; break;
                 }
             },
 
@@ -309,27 +302,50 @@ document.addEventListener('alpine:init', () => {
                 this.cropRice = 0;
                 this.cropWheat = 0;
 
-                // Set the selected crop's value to 1
+
                 switch (this.crop) {
-                    case 'Maize':
-                        this.cropMaize = 1;
-                        break;
-                    case 'Rice':
-                        this.cropRice = 1;
-                        break;
-                    case 'Wheat':
-                        this.cropWheat = 1;
-                        break;
+                    case 'Maize': this.cropMaize = 1; break;
+                    case 'Rice': this.cropRice = 1; break;
+                    case 'Wheat': this.cropWheat = 1; break;
                 }
             },
 
-            analysisData() {
-                console.log({
-                    YIELD: this.yield,
+
+
+            unitOfMeasurement() {
+                switch (this.production) {
+                    case 'g':
+                        this.yieldProduction = (this.predictedYield * this.fieldSize).toFixed(2) + ' grams';
+                        this.yieldShow = (this.predictedYield * this.fieldSize).toFixed(2);
+                        break;
+                    case 'kg':
+                        this.yieldProduction = ((this.predictedYield / 1000) * this.fieldSize).toFixed(2) + ' kilograms';
+                        this.yieldShow = ((this.predictedYield / 1000) * this.fieldSize).toFixed(2);
+                        break;
+                    case 't':
+                        this.yieldProduction = ((this.predictedYield / 1000000) * this.fieldSize).toFixed(2) + ' tons';
+                        this.yieldShow = ((this.predictedYield / 1000000) * this.fieldSize).toFixed(2);
+                        break;
+
+
+                }
+                console.log('Yield production:', this.yieldProduction);
+            },
+
+
+
+            async submitAnalysisData() {
+                // Prepare the region and crop data
+                await this.updateRegion();
+                await this.updateAnalysisCrop();
+
+
+                // Prepare the data payload for the API
+                const dataPayload = {
                     HUMIDITY: this.humidity,
                     RAINFALL: this.rainfall,
                     TEMPERATURE: this.temperature,
-                    TREND: this.trend,
+                    TREND: 1961 - new Date().getFullYear(),
                     REGION_Angola: this.regionAngola,
                     REGION_Botswana: this.regionBotswana,
                     REGION_Eswatini: this.regionEswatini,
@@ -337,17 +353,300 @@ document.addEventListener('alpine:init', () => {
                     REGION_Malawi: this.regionMalawi,
                     REGION_Mozambique: this.regionMozambique,
                     REGION_SouthAfrica: this.regionSouthAfrica,
-                    REGION_Tanzania: this.regionTanzania,
+                    'REGION_United Republic of Tanzania': this.regionTanzania,
                     REGION_Zambia: this.regionZambia,
                     REGION_Zimbabwe: this.regionZimbabwe,
                     CROP_Maize: this.cropMaize,
                     CROP_Rice: this.cropRice,
                     CROP_Wheat: this.cropWheat,
-                });
-                this.updateRegion();
-                this.updateAnalysisCrop();
+                    HUMIDITY_TEMPERATURE: this.humidity * this.temperature
+                };
+
+                try {
+                    // Make the POST request to your Flask API
+                    const response = await axios.post('http://localhost:5000/api/ml/predict', dataPayload);
+
+                    // Handle the API response and store the predicted yield
+                    this.predictedYield = response.data.predicted_yield;
+
+                    // Optionally, log the prediction to the console
+                    console.log("Predicted Yield:", this.predictedYield);
+                    this.unitOfMeasurement();
+                } catch (error) {
+                    console.error("Error during prediction:", error.response?.data || error.message);
+                }
+
             },
 
+
+
+
+
+            /* COMPARISON FUNCTION
+-------------------------------------------------------------------------------------------------------------------------------------------------------- */
+
+
+
+            comparisonResult: false,
+
+            region1: '',
+            cropType1: '',
+            production1: '',
+            regionAngola1: '',
+            regionBotswana1: '',
+            regionEswatini1: '',
+            regionLesotho1: '',
+            regionMalawi1: '',
+            regionMozambique1: '',
+            regionSouthAfrica1: '',
+            regionTanzania1: '',
+            regionZambia1: '',
+            regionZimbabwe1: '',
+            cropMaize1: '',
+            cropRice1: '',
+            cropWheat1: '',
+            temperature1: '',
+            rainfall1: '',
+            humidity1: '',
+            predictedYield1: '',
+            year1: '',
+            selectedYear1: '',
+            yieldProduction1: null,
+            fieldSize1: '',
+
+            region2: '',
+            cropType2: '',
+            production2: '',
+            regionAngola2: '',
+            regionBotswana2: '',
+            regionEswatini2: '',
+            regionLesotho2: '',
+            regionMalawi2: '',
+            regionMozambique2: '',
+            regionSouthAfrica2: '',
+            regionTanzania2: '',
+            regionZambia2: '',
+            regionZimbabwe2: '',
+            cropMaize2: '',
+            cropRice2: '',
+            cropWheat2: '',
+            temperature2: '',
+            rainfall2: '',
+            humidity2: '',
+            predictedYield2: '',
+            year2: '',
+            selectedYear2: '',
+            yieldProduction2: null,
+            fieldSize2: '',
+
+            updateRegion1() {
+                this.regionAngola1 = 0;
+                this.regionBotswana1 = 0;
+                this.regionEswatini1 = 0;
+                this.regionLesotho1 = 0;
+                this.regionMalawi1 = 0;
+                this.regionMozambique1 = 0;
+                this.regionSouthAfrica1 = 0;
+                this.regionTanzania1 = 0;
+                this.regionZambia1 = 0;
+                this.regionZimbabwe1 = 0;
+
+                switch (this.region1) {
+                    case 'Angola': this.regionAngola1 = 1; break;
+                    case 'Botswana': this.regionBotswana1 = 1; break;
+                    case 'Eswatini': this.regionEswatini1 = 1; break;
+                    case 'Lesotho': this.regionLesotho1 = 1; break;
+                    case 'Malawi': this.regionMalawi1 = 1; break;
+                    case 'Mozambique': this.regionMozambique1 = 1; break;
+                    case 'South Africa': this.regionSouthAfrica1 = 1; break;
+                    case 'Tanzania': this.regionTanzania1 = 1; break;
+                    case 'Zambia': this.regionZambia1 = 1; break;
+                    case 'Zimbabwe': this.regionZimbabwe1 = 1; break;
+                }
+            },
+
+            updateRegion2() {
+                this.regionAngola2 = 0;
+                this.regionBotswana2 = 0;
+                this.regionEswatini2 = 0;
+                this.regionLesotho2 = 0;
+                this.regionMalawi2 = 0;
+                this.regionMozambique2 = 0;
+                this.regionSouthAfrica2 = 0;
+                this.regionTanzania2 = 0;
+                this.regionZambia2 = 0;
+                this.regionZimbabwe2 = 0;
+
+                switch (this.region2) {
+                    case 'Angola': this.regionAngola2 = 1; break;
+                    case 'Botswana': this.regionBotswana2 = 1; break;
+                    case 'Eswatini': this.regionEswatini2 = 1; break;
+                    case 'Lesotho': this.regionLesotho2 = 1; break;
+                    case 'Malawi': this.regionMalawi2 = 1; break;
+                    case 'Mozambique': this.regionMozambique2 = 1; break;
+                    case 'South Africa': this.regionSouthAfrica2 = 1; break;
+                    case 'Tanzania': this.regionTanzania2 = 1; break;
+                    case 'Zambia': this.regionZambia2 = 1; break;
+                    case 'Zimbabwe': this.regionZimbabwe2 = 1; break;
+                }
+            },
+
+            updateAnalysisCrop1() {
+                this.cropMaize1 = 0;
+                this.cropRice1 = 0;
+                this.cropWheat1 = 0;
+
+                switch (this.cropType1) {
+                    case 'Maize1': this.cropMaize1 = 1; break;
+                    case 'Rice1': this.cropRice1 = 1; break;
+                    case 'Wheat1': this.cropWheat1 = 1; break;
+                }
+            },
+
+            updateAnalysisCrop2() {
+                this.cropMaize2 = 0;
+                this.cropRice2 = 0;
+                this.cropWheat2 = 0;
+
+                switch (this.cropType2) {
+                    case 'Maize2': this.cropMaize2 = 1; break;
+                    case 'Rice2': this.cropRice2 = 1; break;
+                    case 'Wheat2': this.cropWheat2 = 1; break;
+                }
+            },
+
+            unitOfMeasurement1() {
+                switch (this.production1) {
+                    case 'g':
+                        this.yieldProduction1 = (this.predictedYield1 * this.fieldSize1).toFixed(2) + ' grams';
+                        this.yieldShow1 = (this.predictedYield1 * this.fieldSize1).toFixed(2);
+                        break;
+                    case 'kg':
+                        this.yieldProduction1 = ((this.predictedYield1 / 1000) * this.fieldSize1).toFixed(2) + ' kilograms';
+                        this.yieldShow1 = ((this.predictedYield1 / 1000) * this.fieldSize1).toFixed(2);
+                        break;
+                    case 't':
+                        this.yieldProduction1 = ((this.predictedYield1 / 1000000) * this.fieldSize1).toFixed(2) + ' tons';
+                        this.yieldShow1 = ((this.predictedYield1 / 1000000) * this.fieldSize1).toFixed(2);
+                        break;
+                }
+                console.log('Yield production 1', this.yieldProduction1);
+            },
+
+            unitOfMeasurement2() {
+                switch (this.production2) {
+                    case 'g':
+                        this.yieldProduction2 = (this.predictedYield2 * this.fieldSize2).toFixed(2) + ' grams';
+                        this.yieldShow2 = (this.predictedYield2 * this.fieldSize2).toFixed(2);
+                        break;
+                    case 'kg':
+                        this.yieldProduction2 = ((this.predictedYield2 / 1000) * this.fieldSize2).toFixed(2) + ' kilograms';
+                        this.yieldShow2 = ((this.predictedYield2 / 1000) * this.fieldSize2).toFixed(2);
+                        break;
+                    case 't':
+                        this.yieldProduction2 = ((this.predictedYield2 / 1000000) * this.fieldSize2).toFixed(2) + ' tons';
+                        this.yieldShow2 = ((this.predictedYield2 / 1000000) * this.fieldSize2).toFixed(2);
+                        break;
+                }
+                console.log('Yield production 2', this.yieldProduction2);
+                
+            },
+
+
+            async submitAnalysisData1() {
+                // Prepare the data payload for the first region/crop
+                const dataPayload1 = {
+                    HUMIDITY: this.humidity1,
+                    RAINFALL: this.rainfall1,
+                    TEMPERATURE: this.temperature1,
+                    TREND: 1961 - new Date().getFullYear(),
+                    REGION_Angola: this.regionAngola1,
+                    REGION_Botswana: this.regionBotswana1,
+                    REGION_Eswatini: this.regionEswatini1,
+                    REGION_Lesotho: this.regionLesotho1,
+                    REGION_Malawi: this.regionMalawi1,
+                    REGION_Mozambique: this.regionMozambique1,
+                    REGION_SouthAfrica: this.regionSouthAfrica1,
+                    'REGION_United Republic of Tanzania': this.regionTanzania1,
+                    REGION_Zambia: this.regionZambia1,
+                    REGION_Zimbabwe: this.regionZimbabwe1,
+                    CROP_Maize: this.cropMaize1,
+                    CROP_Rice: this.cropRice1,
+                    CROP_Wheat: this.cropWheat1,
+                    HUMIDITY_TEMPERATURE: this.humidity1 * this.temperature1
+                };
+            
+                try {
+                    // Make the POST request to your Flask API for the first region/crop
+                    const response1 = await axios.post('http://localhost:5000/api/ml/predict', dataPayload1);
+
+                    // Handle the API response and store the predicted yield
+                    this.predictedYield1 = response1.data.predicted_yield;
+
+                    // Optionally, log the prediction to the console
+                    console.log("Predicted Yield1:", this.predictedYield1);
+                    this.unitOfMeasurement1()
+
+                } catch (error) {
+                    console.error("Error during prediction for Region 1:", error.response?.data || error.message);
+                    return 0; // Return 0 in case of an error
+                }
+            },
+            
+            async submitAnalysisData2() {
+                // Prepare the data payload for the second region/crop
+                const dataPayload2 = {
+                    HUMIDITY: this.humidity2,
+                    RAINFALL: this.rainfall2,
+                    TEMPERATURE: this.temperature2,
+                    TREND: 1961 - new Date().getFullYear(),
+                    REGION_Angola: this.regionAngola2,
+                    REGION_Botswana: this.regionBotswana2,
+                    REGION_Eswatini: this.regionEswatini2,
+                    REGION_Lesotho: this.regionLesotho2,
+                    REGION_Malawi: this.regionMalawi2,
+                    REGION_Mozambique: this.regionMozambique2,
+                    REGION_SouthAfrica: this.regionSouthAfrica2,
+                    'REGION_United Republic of Tanzania': this.regionTanzania2,
+                    REGION_Zambia: this.regionZambia2,
+                    REGION_Zimbabwe: this.regionZimbabwe2,
+                    CROP_Maize: this.cropMaize2,
+                    CROP_Rice: this.cropRice2,
+                    CROP_Wheat: this.cropWheat2,
+                    HUMIDITY_TEMPERATURE: this.humidity2 * this.temperature2
+                };
+            
+                try {
+                    // Make the POST request to your Flask API for the second region/crop
+                    const response2 = await axios.post('http://localhost:5000/api/ml/predict', dataPayload2);
+            
+                    // Handle the API response and store the predicted yield
+                    this.predictedYield2 = response2.data.predicted_yield;
+
+                    // Optionally, log the prediction to the console
+                    console.log("Predicted Yield2:", this.predictedYield2);
+                    this.unitOfMeasurement2();
+
+                } catch (error) {
+                    console.error("Error during prediction for Region 2:", error.response?.data || error.message);
+                    return 0; // Return 0 in case of an error
+                }
+            },
+
+
+            async compareYield() {
+                await this.updateRegion1();
+                await this.updateRegion2();
+                await this.updateAnalysisCrop1();
+                await this.updateAnalysisCrop2();
+
+                // Simulate getting predicted yield from API
+                this.predictedYield1 = await this.submitAnalysisData1();
+                this.predictedYield2 = await this.submitAnalysisData2();
+
+  
+                this.comparisonResult = true
+            },
 
 
 
