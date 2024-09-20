@@ -221,6 +221,7 @@ document.addEventListener('alpine:init', () => {
 -------------------------------------------------------------------------------------------------------------------------------------------------------- */
             sidebarOpen: false,
             goBack() {
+                this._setPage('homepage');
                 this.loginSection = false;
                 this.homepage = true;
                 this.taskPage = false;
@@ -651,6 +652,7 @@ document.addEventListener('alpine:init', () => {
             openAnalysis() {
                 this.analysisPage = true;
                 this.homepage = false
+                this._setPage('analysisPage');
             },
 
 
@@ -695,6 +697,7 @@ document.addEventListener('alpine:init', () => {
                     if (response.status === 200) {
                         alert('Task added successfully');
                         this.clearFields(); // Clear input fields
+                        await this.fetchTasks(); 
                     } else {
                         alert('Failed to add task');
                     }
@@ -785,7 +788,8 @@ document.addEventListener('alpine:init', () => {
 
             openTask() {
                 this.taskPage = true;
-                this.homepage = false
+                this.homepage = false;
+                this._setPage('taskPage');
             },
 
             checkUser() {
@@ -810,7 +814,8 @@ document.addEventListener('alpine:init', () => {
 
             openMachine() {
                 this.machinePage = true;
-                this.homepage = false
+                this.homepage = false;
+                this._setPage('machinePage');
             },
 
             // Add new machinery
@@ -840,6 +845,7 @@ document.addEventListener('alpine:init', () => {
                         });
                         this.clearFieldsM();
                         this.loadMachine();
+                        await this.fetchMachinery
                     } else {
                         alert('Failed to add machinery');
                     }
@@ -997,6 +1003,7 @@ document.addEventListener('alpine:init', () => {
                         alert('Crop added successfully');
                         this.clearCropFields();
                         this.loadCrops();
+                        await this.fetchCrops();
                     } else {
                         alert('Failed to add crop');
                     }
@@ -1060,7 +1067,8 @@ document.addEventListener('alpine:init', () => {
 
             openCrop() {
                 this.cropPage = true;
-                this.homepage = false
+                this.homepage = false;
+                this._setPage('cropPage');
             },
 
 
@@ -1069,7 +1077,8 @@ document.addEventListener('alpine:init', () => {
 
             openProfile() {
                 this.profilePage = true;
-                this.homepage = false
+                this.homepage = false;
+                this._setPage('profilePage');
             },
 
             /* ABOUT
@@ -1077,13 +1086,33 @@ document.addEventListener('alpine:init', () => {
 
             openAbout() {
                 this.about = true;
-                this.homepage = false
+                this.homepage = false;
+                this._setPage('about');
             },
 
+            _setPage(page) {
+                this.loginSection = false;
+                this.homepage = false;
+                this.taskPage = false;
+                this.machinePage = false;
+                this.cropPage = false;
+                this.analysisPage = false;
+                this.profilePage = false;
+                this.about = false;
+
+                this[page] = true;
+                localStorage.setItem('currentPage', page);
+            },
             /* init
  -------------------------------------------------------------------------------------------------------------------------------------------------------- */
 
             async init() {
+
+                const currentPage = localStorage.getItem('currentPage') || 'loginSection';
+                this[currentPage] = true;
+                if (currentPage !== 'loginSection') {
+                    this.loginSection = false;
+                }
 
                 const storedProfile = JSON.parse(localStorage.getItem('profile'));
                 if (storedProfile) {
@@ -1096,7 +1125,7 @@ document.addEventListener('alpine:init', () => {
 
                     // Automatically log in the user
                     this.loginSection = false;
-                    this.homepage = true; // Set
+             
                 };
 
                 await this.loadTasks();
