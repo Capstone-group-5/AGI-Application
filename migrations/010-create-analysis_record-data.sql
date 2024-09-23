@@ -1,2 +1,2 @@
-insert into analysis_record (Organisation, CropType, Temperature, Humidity, Rainfall, Nitrogen, Potassium,  Phosphorus, pH_Level) values ('GrapeVine1', 'Grapes', 21, 80, 202, 85, 43, 56, 6);
-insert into analysis_record (Organisation, CropType, Temperature, Humidity, Rainfall, Nitrogen, Potassium,  Phosphorus, pH_Level) values ('GrapeVine1', 'Corn', 26, 86, 226, 80, 55, 70, 7);
+insert into analysis_record (Organisation, Region, CropType, Field_size_ha, Temperature, Humidity, Rainfall, Predicted_yield) values ('GrapeVine1', 'South Africa', 'Maize', 80, 20, 85, 1650, 841.99);
+insert into analysis_record (Organisation, Region, CropType, Field_size_ha, Temperature, Humidity, Rainfall, Predicted_yield) values ('GrapeVine1', 'Lesotho', 'Rice', 86, 26, 80, 1400, 802.62);

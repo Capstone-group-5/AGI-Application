@@ -24,5 +24,5 @@ app.use('/crops/', cropRoutes);
 app.use('/analysis/', analysisRoutes);
 
 
-const PORT = process.env.PORT || 5565;
+const PORT = process.env.PORT || 5885;
 app.listen(PORT, () => console.log(`Server is running on PORT ${PORT}`));

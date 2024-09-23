@@ -46,7 +46,7 @@ document.addEventListener('alpine:init', () => {
 
             async fetchUserProfile() {
                 try {
-                    const response = await axios.get(`http://localhost:5565/profile/get_one_profile/${this.email}`);
+                    const response = await axios.get(`http://localhost:5885/profile/get_one_profile/${this.email}`);
 
                     if (response.status === 200) {
                         console.log('Profile:', response.data);
@@ -97,7 +97,7 @@ document.addEventListener('alpine:init', () => {
 
             async fetchAddProfile() {
                 try {
-                    const response = axios.post(`http://localhost:5565/profile/add_new_user/`,
+                    const response = axios.post(`http://localhost:5885/profile/add_new_user/`,
                         {
                             Organisation: this.organisation,
                             UserName: this.userName,
@@ -165,7 +165,7 @@ document.addEventListener('alpine:init', () => {
 
             async fetchUpdateProfile() {
                 try {
-                    const response = await axios.put(`http://localhost:5565/profile/Update/user_profile/${this.email}`, {
+                    const response = await axios.put(`http://localhost:5885/profile/Update/user_profile/${this.email}`, {
                         Organisation: this.cOrg,
                         UserName: this.userName,
                         Surname: this.userSurname,
@@ -684,7 +684,7 @@ document.addEventListener('alpine:init', () => {
                 }
 
                 try {
-                    const response = await axios.post(`http://localhost:5565/tasks/add_new_task/${this.cOrg}`, {
+                    const response = await axios.post(`http://localhost:5885/tasks/add_new_task/${this.cOrg}`, {
                         Organisation: this.cOrg,
                         Task: task,
                         Assigner: this.cUserName,
@@ -710,7 +710,7 @@ document.addEventListener('alpine:init', () => {
             // Fetch tasks
             async fetchTasks() {
                 try {
-                    const response = await axios.get(`http://localhost:5565/tasks/retrieve_tasks/${this.cOrg}`);
+                    const response = await axios.get(`http://localhost:5885/tasks/retrieve_tasks/${this.cOrg}`);
 
                     if (response.status === 200) {
                         this.taskList = response.data;
@@ -741,7 +741,7 @@ document.addEventListener('alpine:init', () => {
 
 
                 try {
-                    const response = await axios.put(`http://localhost:5565/tasks/Update_task/${this.cOrg}/${this.selectedTask}`, {
+                    const response = await axios.put(`http://localhost:5885/tasks/Update_task/${this.cOrg}/${this.selectedTask}`, {
                         Task: this.task,
                         Assigner: this.cUserName,
                         Assignee: this.assignee,
@@ -765,7 +765,7 @@ document.addEventListener('alpine:init', () => {
             async deleteTask(taskID) {
 
                 try {
-                    const response = await axios.delete(`http://localhost:5565/tasks/Delete_task/${this.cOrg}/${taskID}`);
+                    const response = await axios.delete(`http://localhost:5885/tasks/Delete_task/${this.cOrg}/${taskID}`);
 
                     if (response.status === 200) {
                         alert('Task deleted successfully');
@@ -826,7 +826,7 @@ document.addEventListener('alpine:init', () => {
                 }
 
                 try {
-                    const response = await axios.post(`http://localhost:5565/machines/Add_machine/${this.cOrg}/${this.reg_number}`, {
+                    const response = await axios.post(`http://localhost:5885/machines/Add_machine/${this.cOrg}/${this.reg_number}`, {
                         Organisation: this.cOrg,
                         Machinery: this.machinery,
                         reg_number: this.reg_number,
@@ -858,7 +858,7 @@ document.addEventListener('alpine:init', () => {
             // Fetch all machinery
             async fetchMachinery() {
                 try {
-                    const response = await axios.get(`http://localhost:5565/machines/retrieve_all_machines/${this.cOrg}`);
+                    const response = await axios.get(`http://localhost:5885/machines/retrieve_all_machines/${this.cOrg}`);
 
                     if (response.status === 200) {
                         this.machineryList = response.data;
@@ -880,7 +880,7 @@ document.addEventListener('alpine:init', () => {
             async updateMachinery() {
 
                 try {
-                    const response = await axios.put(`http://localhost:5565/machines/Update_machine/${this.cOrg}/${this.selectedMachine}`, {
+                    const response = await axios.put(`http://localhost:5885/machines/Update_machine/${this.cOrg}/${this.selectedMachine}`, {
                         Organisation: this.cOrg,
                         Machinery: this.machinery,
                         reg_number: this.reg_number,
@@ -911,7 +911,7 @@ document.addEventListener('alpine:init', () => {
 
 
                 try {
-                    const response = await axios.delete(`http://localhost:5565/machines/Delete_machine/${this.cOrg}/${machineID}`);
+                    const response = await axios.delete(`http://localhost:5885/machines/Delete_machine/${this.cOrg}/${machineID}`);
 
                     if (response.status === 200) {
                         alert('Machinery deleted successfully');
@@ -950,7 +950,7 @@ document.addEventListener('alpine:init', () => {
             // Fetch all crops for an organization
             async fetchCrops() {
                 try {
-                    const response = await axios.get(`http://localhost:5565/crops/Get_crops/${this.cOrg}`);
+                    const response = await axios.get(`http://localhost:5885/crops/Get_crops/${this.cOrg}`);
 
                     if (response.status === 200) {
                         this.cropList = response.data;
@@ -971,7 +971,7 @@ document.addEventListener('alpine:init', () => {
             // Fetch a single type of crop
             async fetchCropByType() {
                 try {
-                    const response = await axios.get(`http://localhost:5565/Get_one_type/${this.cOrg}/${this.cropType}`);
+                    const response = await axios.get(`http://localhost:5885/Get_one_type/${this.cOrg}/${this.cropType}`);
 
                     if (response.status === 200) {
                         // Handle the single crop type data here
@@ -993,7 +993,7 @@ document.addEventListener('alpine:init', () => {
                 }
 
                 try {
-                    const response = await axios.post('http://localhost:5565/crops/Add_a_crop', {
+                    const response = await axios.post('http://localhost:5885/crops/Add_a_crop', {
                         Organisation: this.cOrg,
                         Crop: this.newCropType,
                         Yield: this.newCropYield,
@@ -1016,7 +1016,7 @@ document.addEventListener('alpine:init', () => {
             // Update an existing crop record
             async updateCrop() {
                 try {
-                    const response = await axios.put(`http://localhost:5565/crops/Update_crop/${this.selectedCrop}`, {
+                    const response = await axios.put(`http://localhost:5885/crops/Update_crop/${this.selectedCrop}`, {
                         Crop: this.newCropType,
                         Yield: this.newCropYield
                     });
@@ -1043,7 +1043,7 @@ document.addEventListener('alpine:init', () => {
             // Delete a crop record
             async deleteCrop(cropId) {
                 try {
-                    const response = await axios.delete(`http://localhost:5565/crops/Delete_crop/${cropId}`);
+                    const response = await axios.delete(`http://localhost:5885/crops/Delete_crop/${cropId}`);
 
                     if (response.status === 200) {
                         alert('Crop deleted successfully');
@@ -1131,7 +1131,7 @@ document.addEventListener('alpine:init', () => {
                 await this.loadTasks();
                 await this.loadMachine();
                 await this.loadCrops();
-                this.checkUser();
+                await this.checkUser();
 
             },
 
