@@ -1,4 +1,8 @@
-.analysisPage Header {
+.analysisPage{
+    font-weight: bolder;
+}
+
+.analysisPage Header, h2, h3 {
     color: white;
     text-align: center; 
     font-weight: bolder;
@@ -16,6 +20,8 @@
     border-radius: 8px;
 }
 
+
+
 .analysisPage .field-section, 
 .analysisPage .soil-quality, 
 .analysisPage .environmental-factors {
@@ -25,21 +31,53 @@
 .analysisPage label {
     display: block;
     margin-bottom: 8px;
-    color: #333; /* Dark color for better readability */
+    color: #080808; /* Dark color for better readability */
+    min-width: 100px;
+    margin-bottom: 10px;
+}
+
+.labelInput{
+    display: flex;
+    box-sizing: border-box;
 }
 
 .analysisPage input {
     padding: 8px;
     margin-bottom: 12px;
-    width: 100%;
+    max-width: 300px;
     box-sizing: border-box;
-    border: 1px solid #ccc; /* Neutral border color */
-    border-radius: 4px;
+    border: 1px solid #000000; 
+    border-radius: 5px;
+    width: 100%;
+    color: #000000;
+    font-weight: bolder;
+
 }
+
+.analysisPage select {
+    padding: 8px;
+    margin-bottom: 12px;
+    max-width: 300px;
+    box-sizing: border-box;
+    border: 1px solid #000000; /* Neutral border color */
+    border-radius: 5px;
+    width: 100%;
+    color: #000000;
+    font-weight: bolder;
+}
+
+.variableSplitter{
+    display: flex;
+    flex: 1;
+   justify-content: space-between;
+   gap: 10px;
+}
+
 
 .analysisPage .actions {
     display: flex;
     justify-content: space-between;
+    justify-content: center;
 }
 
 .analysisPage button {
@@ -50,21 +88,60 @@
     cursor: pointer;
     border-radius: 4px;
     transition: background-color 0.3s ease;
+    font-weight: bolder;
 }
 
 .analysisPage button:hover {
     background-color: #4CAF50; /* Even darker shade for hover */
 }
-
-.country{
+.country {
     display: flex;
     flex: 1;
-    border: 1px solid #ccc; 
+    border: 1px solid #000000; 
+    position: relative; 
 }
 
-.country div {
+.country1, .country2 {
     flex: 1;
     margin: 5px;
     padding: 10px;
     text-align: center;
+    position: relative; 
+} 
+
+/* Add a vertical line */
+.country::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%; /* Center the line */
+    width: 1px; /* Width of the line */
+    background-color: #000000; /* Line color */
+    transform: translateX(-50%); /* Center the line */
 }
+
+.predictedYield{
+    text-align: center;
+}
+
+.predictedYield input {
+    max-width: 250px; 
+    border: #000000 1px solid ;
+    border-radius: 10px;
+    box-shadow: 10px 10px 10px rgba(210, 210, 210, 0.1);
+    box-sizing: border-box;
+    padding: 10px; 
+}
+
+.measurementSelection{
+    text-align: center;
+}
+
+.comparisonResults{
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
+    gap: 10px;
+}
+

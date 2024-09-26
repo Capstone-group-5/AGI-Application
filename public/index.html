@@ -183,41 +183,68 @@
             </header>
             <!-- Input fields for Crop Analysis -->
 
-            <h2>Production details</h2>
-            <div class="crop-selection">
-                <label for="region">Select your region:</label>
-                <select id="region" x-model="region" @change="updateRegion()">
-                    <option value="">Select a region</option>
-                    <option value="Angola">Angola</option>
-                    <option value="Botswana">Botswana</option>
-                    <option value="Eswatini">Eswatini</option>
-                    <option value="Lesotho">Lesotho</option>
-                    <option value="Malawi">Eswatini</option>
-                    <option value="Mozambique">Mozambique</option>
-                    <option value="South Africa">South Africa</option>
-                    <option value="Tanzania">Tanzania</option>
-                    <option value="Zimbabwe">Zimbabwe</option>
-                    <option value="Zambia">Zambia</option>
-                </select>
+            <div class="variableSplitter">
+                <div>
+                    <h2>Farming Details</h2>
+
+                    <div class="labelInput">
+                        <label for="region">Region</label>
+                        <select id="region" x-model="region" @change="updateRegion()">
+                            <option value="">Select a region</option>
+                            <option value="Angola">Angola</option>
+                            <option value="Botswana">Botswana</option>
+                            <option value="Eswatini">Eswatini</option>
+                            <option value="Lesotho">Lesotho</option>
+                            <option value="Malawi">Eswatini</option>
+                            <option value="Mozambique">Mozambique</option>
+                            <option value="South Africa">South Africa</option>
+                            <option value="Tanzania">Tanzania</option>
+                            <option value="Zimbabwe">Zimbabwe</option>
+                            <option value="Zambia">Zambia</option>
+                        </select>
+                    </div>
+
+
+
+                    <div class="labelInput">
+                        <label for="cropType">Crop</label>
+                        <select id="cropType" x-model="cropType" @change="updateAnalysisCrop()">
+                            <option value="">Select a crop</option>
+                            <option value="Maize">Maize</option>
+                            <option value="Wheat">Wheat</option>
+                            <option value="Rice">Rice</option>
+                        </select>
+                    </div>
+
+                    <div class="labelInput">
+                        <label for="field-size">Harvest area</label>
+                        <input type="number" id="field-size" x-model="fieldSize" placeholder="Hectare">
+                    </div>
+                </div>
+
+
+                <div>
+                    <h2>Climate Factors</h2>
+                    <div class="environmental-factors">
+                        <div class="labelInput">
+                            <label for="temperature">Temperature</label>
+                            <input type="number" id="temperature" x-model="temperature">
+                        </div>
+
+                        <div class="labelInput">
+                            <label for="rainfall">Rainfall</label>
+                            <input type="number" id="rainfall" x-model="rainfall">
+                        </div>
+
+                        <div class="labelInput">
+                            <label for="humidity">Humidity</label>
+                            <input type="number" id="humidity" x-model="humidity">
+                        </div>
+                    </div>
+                </div>
             </div>
 
-
-            
-            <div class="crop-selection">
-                <label for="cropType">Select a crop:</label>
-                <select id="cropType" x-model="cropType" @change="updateAnalysisCrop()">
-                    <option value="">Select a crop</option>
-                    <option value="Maize">Maize</option>
-                    <option value="Wheat">Wheat</option>
-                    <option value="Rice">Rice</option>
-                </select>
-            </div>
-
-            <div class="field-section">
-
-                <label for="field-size">Field size in hectare:</label>
-                <input type="number" id="field-size" x-model="fieldSize">
-
+            <div class="measurementSelection">
                 <select x-model="production" @change="unitOfMeasurement()">
                     <option value="">Select unit of measurement</option>
                     <option value="g">Grams</option>
@@ -225,25 +252,6 @@
                     <option value="t">Tons</option>
                 </select>
             </div>
-
-            <h2>Environmental Factors</h2>
-            <div class="environmental-factors">
-                <div>
-                    <label for="temperature">Temperature:</label>
-                    <input type="number" id="temperature" x-model="temperature">
-                </div>
-
-                <div>
-                    <label for="rainfall">Rainfall:</label>
-                    <input type="number" id="rainfall" x-model="rainfall">
-                </div>
-
-                <div>
-                    <label for="humidity">Humidity:</label>
-                    <input type="number" id="humidity" x-model="humidity">
-                </div>
-            </div>
-
 
 
 
@@ -254,20 +262,26 @@
             </div>
 
             <div class="predictedYield" x-show="yieldShow > 0">
-                <h2>Predicted Yield: <span x-text="yieldProduction"></span></h2>
+
+                <!--  <h2>Predicted Yield: <span x-text="yieldProduction"></span></h2> -->
+
+                <label for="yield">Predicted Yield:</label>
+                <input type="text" x-model="yieldProduction" readonly style="text-align: center;">
+
             </div>
 
             <div class="comparison-section">
-                
-                
-            
+
+
+
                 <h2>Compare Two Yield Predictions </h2>
-                
-                    <!-- Country 1 -->
-                    <div class="country">
-                        <div class="country1">
+
+                <!-- Country 1 -->
+                <div class="country">
+                    <div class="country1">
 
                         <div class="crop-selection">
+                            <h3>Prediciton 1</h3>
                             <label for="region1">Select a region:</label>
                             <select id="region1" x-model="region1" @change="updateRegion1()">
                                 <option value="">Select a region</option>
@@ -283,9 +297,9 @@
                                 <option value="Zambia">Zambia</option>
                             </select>
                         </div>
-            
-            
-                        
+
+
+
                         <div class="crop-selection">
                             <label for="cropType1">Select a crop:</label>
                             <select id="cropType1" x-model="cropType1" @change="updateAnalysisCrop1()">
@@ -295,12 +309,12 @@
                                 <option value="Rice1">Rice</option>
                             </select>
                         </div>
-            
+
                         <div class="field-section">
-            
+
                             <label for="field-size1">Field size in hectare:</label>
                             <input type="number" id="field-size1" x-model="fieldSize1">
-            
+
                             <select x-model="production1" @change="unitOfMeasurement1()">
                                 <option value="">Select unit of measurement</option>
                                 <option value="g">Grams</option>
@@ -312,22 +326,23 @@
                                 <label for="temperature1">Temperature:</label>
                                 <input type="number" id="temperature1" x-model="temperature1">
                             </div>
-            
+
                             <div>
                                 <label for="rainfall1">Rainfall:</label>
                                 <input type="number" id="rainfall1" x-model="rainfall1">
                             </div>
-            
+
                             <div>
                                 <label for="humidity1">Humidity:</label>
                                 <input type="number" id="humidity1" x-model="humidity1">
                             </div>
                         </div>
                     </div>
-            
+
                     <!-- Country 2 -->
                     <div class="country2">
                         <div class="crop-selection">
+                            <h3>Prediciton 2</h3>
                             <label for="region2">Select a region:</label>
                             <select id="region2" x-model="region2" @change="updateRegion2()">
                                 <option value="">Select a region</option>
@@ -343,9 +358,9 @@
                                 <option value="Zambia">Zambia</option>
                             </select>
                         </div>
-            
-            
-                        
+
+
+
                         <div class="crop-selection">
                             <label for="cropType2">Select a crop:</label>
                             <select id="cropType2" x-model="cropType2" @change="updateAnalysisCrop2()">
@@ -355,12 +370,12 @@
                                 <option value="Rice2">Rice</option>
                             </select>
                         </div>
-            
+
                         <div class="field-section">
-            
+
                             <label for="field-size2">Field size in hectare:</label>
                             <input type="number" id="field-size2" x-model="fieldSize2">
-            
+
                             <select x-model="production2" @change="unitOfMeasurement2()">
                                 <option value="">Select unit of measurement</option>
                                 <option value="g">Grams</option>
@@ -372,12 +387,12 @@
                                 <label for="temperature2">Temperature:</label>
                                 <input type="number" id="temperature2" x-model="temperature2">
                             </div>
-            
+
                             <div>
                                 <label for="rainfall2">Rainfall:</label>
                                 <input type="number" id="rainfall2" x-model="rainfall2">
                             </div>
-            
+
                             <div>
                                 <label for="humidity2">Humidity:</label>
                                 <input type="number" id="humidity2" x-model="humidity2">
@@ -385,16 +400,24 @@
                         </div>
                     </div>
                 </div>
-           
-            
-                <div class="compare-actions">
+
+
+                <div class="actions">
                     <button style="margin-top: 20px;margin-bottom: 10px;" @click="compareYield()">Compare</button>
                 </div>
-            
-                <div class="comparison-results" x-show="comparisonResult">
-                    <h2>Yield Comparison Result:</h2>
-                    <p x-text="region1 + ': ' + yieldProduction1"><strong></strong></p>
-                    <p x-text="region2 + ': ' + yieldProduction2"><strong></strong></p>
+
+                <div x-show="comparisonResult">
+                    <h2>Comparison Result</h2>
+                    <div class="comparisonResults">
+                        <div>
+                            <label for="yield1">Prediction 1</label>
+                            <input type="text" id="yield1" readonly x-model="region1 + ': ' + yieldProduction1">
+                        </div>
+                        <div>
+                            <label for="yield2">Prediction 2</label>
+                            <input type="text" id="yield2" readonly x-model="region2 + ': ' + yieldProduction2">
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -406,399 +429,137 @@
 
 
     </div>
-        <!-- TASK SCHEDULER
+    <!-- TASK SCHEDULER
 -------------------------------------------------------------------------------------------------------------------------------------------------------- -->
-        <div class="taskPage" x-show="taskPage">
-            <div class="main-container">
-                <header>
-                    <h1>Task Appointment</h1>
-                </header>
+    <div class="taskPage" x-show="taskPage">
+        <div class="main-container">
+            <header>
+                <h1>Task Appointment</h1>
+            </header>
 
-                <!-- Section to add new task -->
-                <section class="form-section" x-show="cUserRole === 'Admin'">
-                    <h2>Add New Task</h2>
+            <!-- Section to add new task -->
+            <section class="form-section" x-show="cUserRole === 'Admin'">
+                <h2>Add New Task</h2>
+
+                <div class="imageSpace">
+                    <div>
+                        <!-- Task -->
+                        <div class="form-group">
+                            <label for="task-name">Task:</label>
+                            <input type="text" id="task-name" x-model="task" placeholder="Enter task" required>
+                        </div>
 
 
-                    <!-- Task -->
-                    <div class="form-group">
-                        <label for="task-name">Task:</label>
-                        <input type="text" id="task-name" x-model="task" placeholder="Enter task" required>
+                        <!-- Assignee -->
+                        <div class="form-group">
+                            <label for="assignee-name">Assignee:</label>
+                            <input type="text" id="assignee-name" x-model="assignee" placeholder="Enter assignee's name"
+                                required>
+                        </div>
+
+                        <!-- Status -->
+                        <div class="form-group">
+                            <label for="status">Status:</label>
+                            <select id="status" x-model="status" required>
+                                <option value="" disabled>Select status</option>
+                                <option value="Pending">Pending</option>
+                                <option value="In Progress">In Progress</option>
+                                <option value="Completed">Completed</option>
+                            </select>
+                        </div>
+
+                        <!-- Deadline -->
+                        <div class="form-group">
+                            <label for="deadline">Deadline:</label>
+                            <input type="datetime-local" id="deadline" x-model="deadline" required>
+                        </div>
                     </div>
 
-
-                    <!-- Assignee -->
-                    <div class="form-group">
-                        <label for="assignee-name">Assignee:</label>
-                        <input type="text" id="assignee-name" x-model="assignee" placeholder="Enter assignee's name"
-                            required>
+                    <div>
+                        <img src="\images\taskManagement.jpg" alt="Task management image" class="taskManagementImage">
                     </div>
 
-                    <!-- Status -->
-                    <div class="form-group">
-                        <label for="status">Status:</label>
-                        <select id="status" x-model="status" required>
-                            <option value="" disabled>Select status</option>
-                            <option value="Pending">Pending</option>
-                            <option value="In Progress">In Progress</option>
-                            <option value="Completed">Completed</option>
-                        </select>
-                    </div>
-
-                    <!-- Deadline -->
-                    <div class="form-group">
-                        <label for="deadline">Deadline:</label>
-                        <input type="datetime-local" id="deadline" x-model="deadline" required>
-                    </div>
-
-                    <!-- Description-->
-                    <div class="form-group">
-                        <label for="deadline">Description</label>
-                        <input type="text" id="deadline" x-model="description" required>
-                    </div>
-
-                    <!-- Add Button -->
-                    <button @click="addTask()">
-                        Add Task
-                    </button>
-                </section>
-
-                <!-- Table to display tasks -->
-                <section class="table-section">
-                    <h2>Task List</h2>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Task</th>
-                                <th>Assigner</th>
-                                <th>Assignee</th>
-                                <th>Status</th>
-                                <th>Deadline</th>
-                                <th>Description</th>
-                                <th>Edit/Delete</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <template x-for="task in taskList" :key="task.Task_Id">
-                                <tr>
-                                    <td x-text="task.Task"></td>
-                                    <td x-text="task.Assigner"></td>
-                                    <td x-text="task.Assignee"></td>
-                                    <td x-text="task.Status"></td>
-                                    <td x-text="task.Dead_line"></td>
-                                    <td x-text="task.Description"></td>
-                                    <td class="tableData" style="display: flex; flex: 1;">
-
-                                        <button class="editButton" @click=" openTaskUpdate(task.Task_Id)"
-                                            style="margin-right: 2px">
-                                            <ion-icon
-                                                style="font-size: 20px; font-weight: bolder; color: blue; background-color: aliceblue;"
-                                                name="create-outline"></ion-icon>
-                                        </button>
-
-
-
-                                        <button class="removeButton" style="margin-left: 2px"
-                                            @click="deleteTask(task.Task_Id)">
-                                            <ion-icon
-                                                style="font-size: 20px; font-weight: bolder;  color: red; background-color: aliceblue;"
-                                                name="trash-outline"></ion-icon>
-                                        </button>
-                                    </td>
-                                </tr>
-                            </template>
-
-                        </tbody>
-                    </table>
-                </section>
-                <button @click="goBack()" style="margin-top: 30px;">Back</button>
-            </div>
-        </div>
-
-
-        <!-- Machine inventory
--------------------------------------------------------------------------------------------------------------------------------------------------------- -->
-
-
-        <div class="machinePage" x-show="machinePage">
-            <div class="main-container">
-                <header>
-                    <h1>Machinery Analysis</h1>
-                </header>
-
-                <!-- Section to add new machinery -->
-                <section class="form-section" x-show="cUserRole === 'Admin'">
-                    <h2>Add New Machinery</h2>
-
-
-
-                    <!-- Machinery Registration Number -->
-                    <div class="form-group">
-                        <label for="machinery-reg_number">Machinery Registration Number:</label>
-                        <input type="text" id="machinery-reg_number" x-model="reg_number"
-                            placeholder="Enter machinery registration number" required>
-                    </div>
-
-                    <!-- Machinery Type -->
-                    <div class="form-group">
-                        <label for="machinery-type">Machinery Type:</label>
-                        <select id="machinery-type" x-model="machinery" required>
-                            <option value="" disabled>Select machinery type</option>
-                            <option value="Tractor">Tractor</option>
-                            <option value="Truck">Truck</option>
-                            <option value="Harvester">Harvester</option>
-                            <option value="Sprayer">Sprayer</option>
-                            <option value="Plow">Plow</option>
-                            <option value="Fertilizer">Fertilizer</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="machinery-type">Machinery condition:</label>
-                        <select id="machinery-type" x-model="condition" required>
-                            <option value="" disabled>Select machinery condition</option>
-                            <option value="Working">Working</option>
-                            <option value="Under maintenance">Under maintenance</option>
-                            <option value="Broken">Broken</option>
-                        </select>
-                    </div>
-
-                    <!-- Issue Description -->
-                    <div class="form-group">
-                        <label for="machinery-issue">Issue Description:</label>
-                        <textarea id="machinery-issue" x-model="issue" placeholder="Describe the issue"
-                            required></textarea>
-                    </div>
-
-                    <!-- Add Button -->
-                    <button @click="addMachinery()">Add Machinery</button>
-                </section>
-
-                <!-- Table to display machinery data -->
-                <section class="table-section">
-                    <h2>Machinery List</h2>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Registration Number</th>
-                                <th>Type</th>
-                                <th>Condition</th>
-                                <th>Issue</th>
-                                <th>Edit/Delete</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <template x-for="(machinery, index) in machineryList" :key="index">
-                                <tr>
-                                    <td x-text="machinery.reg_number"></td>
-                                    <td x-text="machinery.Machinery"></td>
-                                    <td x-text="machinery.Condition"></td>
-                                    <td x-text="machinery.Issue"></td>
-                                    <td class="tableData" style="display: flex; flex: 1;">
-
-                                        <button class="editButton" @click="openMachineUpdate(machinery.machine_Id)"
-                                            style="margin-right: 2px">
-                                            <ion-icon
-                                                style="font-size: 20px; font-weight: bolder; color: blue; background-color: aliceblue;"
-                                                name="create-outline"></ion-icon>
-                                        </button>
-
-
-
-                                        <button class="removeButton" style="margin-left: 2px"
-                                            @click="deleteMachinery(machinery.machine_Id)">
-                                            <ion-icon
-                                                style="font-size: 20px; font-weight: bolder;  color: red; background-color: aliceblue;"
-                                                name="trash-outline"></ion-icon>
-                                        </button>
-                                    </td>
-                                </tr>
-                            </template>
-                        </tbody>
-                    </table>
-                </section>
-                <div class="actions">
-                    <button @click="goBack()">Back</button>
-                </div>
-            </div>
-
-        </div>
-
-
-        <!-- Crop inventory
--------------------------------------------------------------------------------------------------------------------------------------------------------- -->
-        <div class="cropPage" x-show="cropPage">
-            <div class="inventory-container">
-                <header>
-                    <h1>Crop Inventory</h1>
-                </header>
-
-                <!-- Input Section to Add Crops -->
-                <section x-show="cUserRole === 'Admin'">
-
-                    <div class="form-group">
-                        <label for="crop-type">Crop type:</label>
-                        <select id="crop-type" x-model="newCropType" required>
-                            <option value="" disabled>Select crop type</option>
-                            <option value="Wheat">Wheat</option>
-                            <option value=" Rice">Rice</option>
-                            <option value="Maize">Maize</option>
-                        </select>
-                    </div>
-
-
-                    <div class="form-group">
-                        <label for="crop-yield">Crop Yield (t):</label>
-                        <input type="number" id="crop-yield" x-model="newCropYield" placeholder="Enter crop yield">
-                    </div>
-
-                    <button @click="addCrop()">Add Crop</button>
-                </section>
-
-                <!-- Crop Inventory Table -->
-                <section class="table-section">
-                    <h2>Crop Inventory List</h2>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Crop Type</th>
-                                <th>Yield (t)</th>
-                                <th>Edit/Delete</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <template x-for="(crop, index) in cropList" :key="index">
-                                <tr>
-                                    <td x-text="crop.Crop"></td>
-                                    <td x-text="crop.Yield"></td>
-                                    <td class="tableData" style="display: flex; flex: 1;">
-
-                                        <button class="editButton" @click="openCropUpdate(crop.cropRecord_Id)"
-                                            style="margin-right: 2px">
-                                            <ion-icon
-                                                style="font-size: 20px; font-weight: bolder; color: blue; background-color: aliceblue;"
-                                                name="create-outline"></ion-icon>
-                                        </button>
-
-
-
-                                        <button class="removeButton" style="margin-left: 2px"
-                                            @click="deleteCrop(crop.cropRecord_Id)">
-                                            <ion-icon
-                                                style="font-size: 20px; font-weight: bolder;  color: red; background-color: aliceblue;"
-                                                name="trash-outline"></ion-icon>
-                                        </button>
-                                    </td>
-                                </tr>
-                            </template>
-                        </tbody>
-                    </table>
-
-
-                </section>
-                <button class="go-back-btn" @click="goBack()">Go Back</button>
-            </div>
-
-
-        </div>
-
-
-        <!-- Profile
--------------------------------------------------------------------------------------------------------------------------------------------------------- -->
-        <div class="profilePage" x-show="profilePage">
-            <div class="main-container">
-                <header>
-                    <h1>Profile Information</h1>
-                </header>
-
-                <!-- Profile Input Fields -->
-                <section class="input-section">
-                    <div class="form-group">
-                        <label for="name">Name:</label>
-                        <input type="text" id="name" x-model="userName" placeholder="Enter your name" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="surname">Surname:</label>
-                        <input type="text" id="surname" x-model="userSurname" placeholder="Enter your surname" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="email">Email:</label>
-                        <input type="email" id="email" x-model="email" placeholder="Enter your email" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="user-password">User Password:</label>
-                        <input type="password" id="user-password" x-model="userPassword"
-                            placeholder="Enter your user password" required>
-                    </div>
-
-                    <div class="form-group">
-                        <select x-model="userRole">
-                            <option value="">Enter your user role</option>
-                            <option value="Admin">Admin</option>
-                            <option value="Employee">Employee</option>
-                        </select>
-                    </div>
-
-
-                    <button @click="updateProfile()">Update Profile</button>
-                </section><button @click="goBack">Back</button>
-            </div>
-
-        </div>
-
-
-        <!-- Update popup
--------------------------------------------------------------------------------------------------------------------------------------------------------- -->
-
-        <div class="updatepPopUp" x-show="showPopup">
-            <h2 x-show="taskUpdate">Edit task </h2>
-            <h2 x-show="machineUpdate">Edit machine </h2>
-
-            <div x-show="taskUpdate">
-                <!-- Task -->
-                <div class="form-group">
-                    <label for="task-name">Task:</label>
-                    <input type="text" id="task-name" x-model="task" placeholder="Enter task" required>
-                </div>
-
-
-                <!-- Assignee -->
-                <div class="form-group">
-                    <label for="assignee-name">Assignee:</label>
-                    <input type="text" id="assignee-name" x-model="assignee" placeholder="Enter assignee's name"
-                        required>
-                </div>
-
-                <!-- Status -->
-                <div class="form-group">
-                    <label for="status">Status:</label>
-                    <select id="status" x-model="status" required>
-                        <option value="" disabled>Select status</option>
-                        <option value="Pending">Pending</option>
-                        <option value="In Progress">In Progress</option>
-                        <option value="Completed">Completed</option>
-                    </select>
                 </div>
 
                 <!-- Description-->
-                <div class="form-group">
-                    <label for="deadline">Description</label>
-                    <input type="text" id="deadline" x-model="description" required>
+                <div>
+                    <label for="description">Description:</label>
+                    <textarea class="descriptionInput" id="description" x-model="description" rows="4"
+                        required></textarea>
                 </div>
 
-                <!-- Deadline -->
-                <div class="form-group">
-                    <label for="deadline">Deadline:</label>
-                    <input type="datetime-local" id="deadline" x-model="deadline" required>
-                </div>
+                <!-- Add Button -->
+                <button @click="addTask()">
+                    Add Task
+                </button>
+            </section>
 
-            </div>
+            <!-- Table to display tasks -->
+            <section class="table-section">
+                <h2>Task List</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Task</th>
+                            <th>Assigner</th>
+                            <th>Assignee</th>
+                            <th>Status</th>
+                            <th>Deadline</th>
+                            <th class="tableDescription">Description</th>
+                            <th>Edit/Delete</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <template x-for="task in taskList" :key="task.Task_Id">
+                            <tr>
+                                <td x-text="task.Task"></td>
+                                <td x-text="task.Assigner"></td>
+                                <td x-text="task.Assignee"></td>
+                                <td x-text="task.Status"></td>
+                                <td x-text="task.Dead_line"></td>
+                                <td class="tableDescription" x-text="task.Description"></td>
+                                <td>
+                                    <div class="tableButton">
+                                        <div @click=" openTaskUpdate(task.Task_Id)" style="margin-right: 2px">
+                                            <ion-icon class="editButton" name="create-outline"></ion-icon>
+                                        </div>
 
 
-            <div class="machineUpdate" x-show="machineUpdate">
+
+                                        <div style="margin-left: 2px" @click="deleteTask(task.Task_Id)">
+                                            <ion-icon class="removeButton" name="trash-outline"></ion-icon>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </template>
+
+                    </tbody>
+                </table>
+            </section>
+            <button @click="goBack()" style="margin-top: 30px;">Back</button>
+        </div>
+    </div>
+
+
+    <!-- Machine inventory
+-------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+
+
+    <div class="machinePage" x-show="machinePage">
+        <div class="main-container">
+            <header>
+                <h1>Machinery Analysis</h1>
+            </header>
+
+            <!-- Section to add new machinery -->
+            <section class="form-section" x-show="cUserRole === 'Admin'">
+                <h2>Add New Machinery</h2>
+
+
+
+                <!-- Machinery Registration Number -->
                 <div class="form-group">
                     <label for="machinery-reg_number">Machinery Registration Number:</label>
                     <input type="text" id="machinery-reg_number" x-model="reg_number"
@@ -835,146 +596,410 @@
                     <textarea id="machinery-issue" x-model="issue" placeholder="Describe the issue" required></textarea>
                 </div>
 
+                <!-- Add Button -->
+                <button @click="addMachinery()">Add Machinery</button>
+            </section>
+
+            <!-- Table to display machinery data -->
+            <section class="table-section">
+                <h2>Machinery List</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Registration Number</th>
+                            <th>Type</th>
+                            <th>Condition</th>
+                            <th>Issue</th>
+                            <th>Edit/Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template x-for="(machinery, index) in machineryList" :key="index">
+                            <tr>
+                                <td x-text="machinery.reg_number"></td>
+                                <td x-text="machinery.Machinery"></td>
+                                <td x-text="machinery.Condition"></td>
+                                <td x-text="machinery.Issue"></td>
+                                <td class="tableData" style="display: flex; flex: 1;">
+
+                                    <button class="editButton" @click="openMachineUpdate(machinery.machine_Id)"
+                                        style="margin-right: 2px">
+                                        <ion-icon
+                                            style="font-size: 20px; font-weight: bolder; color: blue; background-color: aliceblue;"
+                                            name="create-outline"></ion-icon>
+                                    </button>
+
+
+
+                                    <button class="removeButton" style="margin-left: 2px"
+                                        @click="deleteMachinery(machinery.machine_Id)">
+                                        <ion-icon
+                                            style="font-size: 20px; font-weight: bolder;  color: red; background-color: aliceblue;"
+                                            name="trash-outline"></ion-icon>
+                                    </button>
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </section>
+            <div class="actions">
+                <button @click="goBack()">Back</button>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- Crop inventory
+-------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+    <div class="cropPage" x-show="cropPage">
+        <div class="inventory-container">
+            <header>
+                <h1>Crop Inventory</h1>
+            </header>
+
+            <!-- Input Section to Add Crops -->
+            <section x-show="cUserRole === 'Admin'">
+
+                <div class="form-group">
+                    <label for="crop-type">Crop type:</label>
+                    <select id="crop-type" x-model="newCropType" required>
+                        <option value="" disabled>Select crop type</option>
+                        <option value="Wheat">Wheat</option>
+                        <option value=" Rice">Rice</option>
+                        <option value="Maize">Maize</option>
+                    </select>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="crop-yield">Crop Yield (t):</label>
+                    <input type="number" id="crop-yield" x-model="newCropYield" placeholder="Enter crop yield">
+                </div>
+
+                <button @click="addCrop()">Add Crop</button>
+            </section>
+
+            <!-- Crop Inventory Table -->
+            <section class="table-section">
+                <h2>Crop Inventory List</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Crop Type</th>
+                            <th>Yield (t)</th>
+                            <th>Edit/Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template x-for="(crop, index) in cropList" :key="index">
+                            <tr>
+                                <td x-text="crop.Crop"></td>
+                                <td x-text="crop.Yield"></td>
+                                <td class="tableData" style="display: flex; flex: 1;">
+
+                                    <button class="editButton" @click="openCropUpdate(crop.cropRecord_Id)"
+                                        style="margin-right: 2px">
+                                        <ion-icon
+                                            style="font-size: 20px; font-weight: bolder; color: blue; background-color: aliceblue;"
+                                            name="create-outline"></ion-icon>
+                                    </button>
+
+
+
+                                    <button class="removeButton" style="margin-left: 2px"
+                                        @click="deleteCrop(crop.cropRecord_Id)">
+                                        <ion-icon
+                                            style="font-size: 20px; font-weight: bolder;  color: red; background-color: aliceblue;"
+                                            name="trash-outline"></ion-icon>
+                                    </button>
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+
+
+            </section>
+            <button class="go-back-btn" @click="goBack()">Go Back</button>
+        </div>
+
+
+    </div>
+
+
+    <!-- Profile
+-------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+    <div class="profilePage" x-show="profilePage">
+        <div class="main-container">
+            <header>
+                <h1>Profile Information</h1>
+            </header>
+
+            <!-- Profile Input Fields -->
+            <section class="input-section">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" x-model="userName" placeholder="Enter your name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="surname">Surname:</label>
+                    <input type="text" id="surname" x-model="userSurname" placeholder="Enter your surname" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" x-model="email" placeholder="Enter your email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="user-password">User Password:</label>
+                    <input type="password" id="user-password" x-model="userPassword"
+                        placeholder="Enter your user password" required>
+                </div>
+
+                <div class="form-group">
+                    <select x-model="userRole">
+                        <option value="">Enter your user role</option>
+                        <option value="Admin">Admin</option>
+                        <option value="Employee">Employee</option>
+                    </select>
+                </div>
+
+
+                <button @click="updateProfile()">Update Profile</button>
+            </section><button @click="goBack">Back</button>
+        </div>
+
+    </div>
+
+
+    <!-- Update popup
+-------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+
+    <div class="updatepPopUp" x-show="showPopup">
+        <h2 x-show="taskUpdate">Edit task </h2>
+        <h2 x-show="machineUpdate">Edit machine </h2>
+
+        <div x-show="taskUpdate">
+            <!-- Task -->
+            <div class="form-group">
+                <label for="task-name">Task:</label>
+                <input type="text" id="task-name" x-model="task" placeholder="Enter task" required>
             </div>
 
 
-            <div class="cropUpdate" x-show="cropUpdate">
-                <section>
-
-                    <div class="form-group">
-                        <label for="crop-type">Crop type:</label>
-                        <select id="crop-type" x-model="newCropType" required>
-                            <option value="" disabled>Select crop type</option>
-                            <option value="Wheat">Wheat</option>
-                            <option value=" Rice">Rice</option>
-                            <option value="Maize">Maize</option>
-                        </select>
-                    </div>
-
-
-                    <div class="form-group">
-                        <label for="crop-yield">Crop Yield (t):</label>
-                        <input type="number" id="crop-yield" x-model="newCropYield" placeholder="Enter crop yield">
-                    </div>
-                </section>
+            <!-- Assignee -->
+            <div class="form-group">
+                <label for="assignee-name">Assignee:</label>
+                <input type="text" id="assignee-name" x-model="assignee" placeholder="Enter assignee's name" required>
             </div>
 
+            <!-- Status -->
+            <div class="form-group">
+                <label for="status">Status:</label>
+                <select id="status" x-model="status" required>
+                    <option value="" disabled>Select status</option>
+                    <option value="Pending">Pending</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Completed">Completed</option>
+                </select>
+            </div>
 
-            <button class="buttons" x-show="taskUpdate"
-                @click="updateTask(task.Task_Id), showPopUp = false; taskUpdate = false ">Edit</button>
-            <button class="buttons" x-show="machineUpdate"
-                @click="updateMachinery(machinery.machine_Id); showPopUp = false; machineUpdate = false">Edit</button>
-            <button class="buttons" x-show="cropUpdate"
-                @click="updateCrop(); cropUpdate = false; showPopUp = false;">Edit</button>
-            <button class="buttons"
-                @click="showPopup = false; taskUpdate = false; machineUpdate = false; cropUpdate = false">Cancel</button>
+            <!-- Description-->
+            <div class="form-group">
+                <label for="deadline">Description</label>
+                <input type="text" id="deadline" x-model="description" required>
+            </div>
 
-
+            <!-- Deadline -->
+            <div class="form-group">
+                <label for="deadline">Deadline:</label>
+                <input type="datetime-local" id="deadline" x-model="deadline" required>
+            </div>
 
         </div>
 
 
-        <!-- ABOUT PAGE
+        <div class="machineUpdate" x-show="machineUpdate">
+            <div class="form-group">
+                <label for="machinery-reg_number">Machinery Registration Number:</label>
+                <input type="text" id="machinery-reg_number" x-model="reg_number"
+                    placeholder="Enter machinery registration number" required>
+            </div>
+
+            <!-- Machinery Type -->
+            <div class="form-group">
+                <label for="machinery-type">Machinery Type:</label>
+                <select id="machinery-type" x-model="machinery" required>
+                    <option value="" disabled>Select machinery type</option>
+                    <option value="Tractor">Tractor</option>
+                    <option value="Truck">Truck</option>
+                    <option value="Harvester">Harvester</option>
+                    <option value="Sprayer">Sprayer</option>
+                    <option value="Plow">Plow</option>
+                    <option value="Fertilizer">Fertilizer</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="machinery-type">Machinery condition:</label>
+                <select id="machinery-type" x-model="condition" required>
+                    <option value="" disabled>Select machinery condition</option>
+                    <option value="Working">Working</option>
+                    <option value="Under maintenance">Under maintenance</option>
+                    <option value="Broken">Broken</option>
+                </select>
+            </div>
+
+            <!-- Issue Description -->
+            <div class="form-group">
+                <label for="machinery-issue">Issue Description:</label>
+                <textarea id="machinery-issue" x-model="issue" placeholder="Describe the issue" required></textarea>
+            </div>
+
+        </div>
+
+
+        <div class="cropUpdate" x-show="cropUpdate">
+            <section>
+
+                <div class="form-group">
+                    <label for="crop-type">Crop type:</label>
+                    <select id="crop-type" x-model="newCropType" required>
+                        <option value="" disabled>Select crop type</option>
+                        <option value="Wheat">Wheat</option>
+                        <option value=" Rice">Rice</option>
+                        <option value="Maize">Maize</option>
+                    </select>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="crop-yield">Crop Yield (t):</label>
+                    <input type="number" id="crop-yield" x-model="newCropYield" placeholder="Enter crop yield">
+                </div>
+            </section>
+        </div>
+
+
+        <button class="buttons" x-show="taskUpdate"
+            @click="updateTask(task.Task_Id), showPopUp = false; taskUpdate = false ">Edit</button>
+        <button class="buttons" x-show="machineUpdate"
+            @click="updateMachinery(machinery.machine_Id); showPopUp = false; machineUpdate = false">Edit</button>
+        <button class="buttons" x-show="cropUpdate"
+            @click="updateCrop(); cropUpdate = false; showPopUp = false;">Edit</button>
+        <button class="buttons"
+            @click="showPopup = false; taskUpdate = false; machineUpdate = false; cropUpdate = false">Cancel</button>
+
+
+
+    </div>
+
+
+    <!-- ABOUT PAGE
 -------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 
 
-        <div class="about" x-show="about">
-            <header>
-                <h1>About Agri-Crop Insight</h1>
-            </header>
+    <div class="about" x-show="about">
+        <header>
+            <h1>About Agri-Crop Insight</h1>
+        </header>
 
-            <main class="container">
-                <section class="intro">
-                    <h2>Background</h2>
+        <main class="container">
+            <section class="intro">
+                <h2>Background</h2>
+                <p>
+                    Crop production is vital for food security, farmer income, and rural livelihoods. However,
+                    farmers
+                    face significant challenges such as unpredictable weather, soil degradation, pest infestations,
+                    and
+                    water scarcity, all of which can impact crop productivity. Current tools often provide
+                    fragmented or
+                    outdated information, lacking the comprehensive guidance necessary for effective
+                    decision-making.
+                </p>
+                <p>
+                    In response to these challenges, Agri-Crop Insight aims to develop a solution that integrates
+                    real-time data with advanced analytics. Our goal is to provide accurate, timely, and actionable
+                    crop
+                    recommendations, empowering farmers to optimize yields and contribute to enhanced food security
+                    and
+                    economic resilience in South Africa. This initiative reflects our commitment to advancing
+                    agricultural sustainability and improving the livelihoods of farmers in the face of climate
+                    change.
+                </p>
+            </section>
+
+            <section class="application">
+                <h2>Application Overview</h2>
+                <p>
+                    Our application harnesses real-time data and machine learning to improve crop yield predictions
+                    and
+                    offer tailored crop recommendations specifically for South African farmers. By analyzing factors
+                    such as water availability and historical yield trends, we provide actionable insights that help
+                    optimize farming practices and enhance both food security and farmers' livelihoods.
+                </p>
+            </section>
+
+            <section class="functionality">
+
+                <section class="instructions">
+                    <h2>How to Use Agri-Crop Insight</h2>
+                    <ol>
+                        <li><strong>Register:</strong> Create an account to access the platform and start using its
+                            features.</li>
+                        <li><strong>Crop Analysis:</strong> Input details about your farm, including soil type,
+                            crops,
+                            and water availability, to receive tailored recommendations.</li>
+                        <li><strong>Task Appointment:</strong> Schedule and manage tasks related to crop management
+                            through the app.</li>
+                        <li><strong>Machinery Analysis:</strong> Track and analyze the condition of your machinery
+                            to
+                            ensure optimal performance and maintenance.</li>
+                    </ol>
+                </section>
+
+                <section class="target-users">
+                    <h2>Who Can Use It</h2>
                     <p>
-                        Crop production is vital for food security, farmer income, and rural livelihoods. However,
-                        farmers
-                        face significant challenges such as unpredictable weather, soil degradation, pest infestations,
-                        and
-                        water scarcity, all of which can impact crop productivity. Current tools often provide
-                        fragmented or
-                        outdated information, lacking the comprehensive guidance necessary for effective
-                        decision-making.
-                    </p>
-                    <p>
-                        In response to these challenges, Agri-Crop Insight aims to develop a solution that integrates
-                        real-time data with advanced analytics. Our goal is to provide accurate, timely, and actionable
-                        crop
-                        recommendations, empowering farmers to optimize yields and contribute to enhanced food security
-                        and
-                        economic resilience in South Africa. This initiative reflects our commitment to advancing
-                        agricultural sustainability and improving the livelihoods of farmers in the face of climate
-                        change.
+                        Agri-Crop Insight is designed for farmers who seek to enhance their crop production and make
+                        informed decisions based on reliable data and advanced analytics. By providing tools that
+                        address critical agricultural challenges, our application aims to support farmers in
+                        achieving
+                        better outcomes and greater economic stability.
                     </p>
                 </section>
 
-                <section class="application">
-                    <h2>Application Overview</h2>
-                    <p>
-                        Our application harnesses real-time data and machine learning to improve crop yield predictions
-                        and
-                        offer tailored crop recommendations specifically for South African farmers. By analyzing factors
-                        such as water availability and historical yield trends, we provide actionable insights that help
-                        optimize farming practices and enhance both food security and farmers' livelihoods.
-                    </p>
+                <section class="instructions">
+                    <h2>Key Functions</h2>
+                    <ul>
+                        <li>Collects and processes real-time data from multiple sources.</li>
+                        <li>Employs machine learning algorithms to analyze data patterns and generate accurate
+                            forecasts
+                            of crop yields.</li>
+                        <li>Delivers customized recommendations for crop selection and farming practices based on
+                            the
+                            analyzed data.</li>
+                        <li>Incorporates local storage, encryption, and blockchain technologies to ensure data
+                            security
+                            and integrity.</li>
+                    </ul>
                 </section>
-
-                <section class="functionality">
-
-                    <section class="instructions">
-                        <h2>How to Use Agri-Crop Insight</h2>
-                        <ol>
-                            <li><strong>Register:</strong> Create an account to access the platform and start using its
-                                features.</li>
-                            <li><strong>Crop Analysis:</strong> Input details about your farm, including soil type,
-                                crops,
-                                and water availability, to receive tailored recommendations.</li>
-                            <li><strong>Task Appointment:</strong> Schedule and manage tasks related to crop management
-                                through the app.</li>
-                            <li><strong>Machinery Analysis:</strong> Track and analyze the condition of your machinery
-                                to
-                                ensure optimal performance and maintenance.</li>
-                        </ol>
-                    </section>
-
-                    <section class="target-users">
-                        <h2>Who Can Use It</h2>
-                        <p>
-                            Agri-Crop Insight is designed for farmers who seek to enhance their crop production and make
-                            informed decisions based on reliable data and advanced analytics. By providing tools that
-                            address critical agricultural challenges, our application aims to support farmers in
-                            achieving
-                            better outcomes and greater economic stability.
-                        </p>
-                    </section>
-
-                    <section class="instructions">
-                        <h2>Key Functions</h2>
-                        <ul>
-                            <li>Collects and processes real-time data from multiple sources.</li>
-                            <li>Employs machine learning algorithms to analyze data patterns and generate accurate
-                                forecasts
-                                of crop yields.</li>
-                            <li>Delivers customized recommendations for crop selection and farming practices based on
-                                the
-                                analyzed data.</li>
-                            <li>Incorporates local storage, encryption, and blockchain technologies to ensure data
-                                security
-                                and integrity.</li>
-                        </ul>
-                    </section>
-            </main>
-            <button @click="goBack()">Back</button>
-        </div>
+        </main>
+        <button @click="goBack()">Back</button>
+    </div>
 
 
 
 
 
-        <!-- Footer -->
-        <footer style="text-align: center;">
-            <p>&copy; 2024 Agri-Crop Insight. All rights reserved.</p>
-        </footer>
+    <!-- Footer -->
+    <footer style="text-align: center;">
+        <p>&copy; 2024 Agri-Crop Insight. All rights reserved.</p>
+    </footer>
 
 
 
