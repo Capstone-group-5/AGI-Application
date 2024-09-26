@@ -24,7 +24,8 @@
 /* Header styling */
 .taskPage Header,
 h2,
-h3 {
+h3,
+h4{
     color: white;
     text-align: center;
     font-weight: bolder;
@@ -186,6 +187,10 @@ h3 {
     }
 }
 
+.taskLayout{
+    display: flex;
+}
+
 
 
 
@@ -241,5 +246,50 @@ h3 {
 @media (max-width: 594px) {
     .taskManagementImage {
         display: none;
+    }
+}
+
+.taskCard1,  
+.taskCard2,
+.taskCard3 {
+    border: #000000 solid 1px;
+    border-radius: 15px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+.taskCard1{
+    background-color: #eff6e0 ;
+}
+
+.taskCard2{
+    background-color: #aec3b0;
+}
+
+.taskCard3{
+    background-color: #598392;
+}
+
+.taskLayout{
+    display: flex;
+    flex: 1;
+    gap: 10px   ;
+}
+
+.taskLayout > div {
+    flex:1;
+    min-width: 0;
+}
+
+@media (min-width: 650px) and (max-width: 720px){
+    .taskLayout{
+        font-size: small;
+    }
+}
+
+@media (max-width:649px){
+    .taskLayout{
+        display: block;
     }
 }

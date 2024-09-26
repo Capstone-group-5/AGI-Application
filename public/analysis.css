@@ -145,3 +145,9 @@
     gap: 10px;
 }
 
+
+@media(max-width:599px) {
+        .variableSplitter{
+            display: block;
+        }
+}

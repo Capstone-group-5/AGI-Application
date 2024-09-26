@@ -495,7 +495,7 @@
             </section>
 
             <!-- Table to display tasks -->
-            <section class="table-section">
+            <section class="table-section" x-show="cUserRole === 'Admin'">
                 <h2>Task List</h2>
                 <table>
                     <thead>
@@ -538,7 +538,63 @@
                     </tbody>
                 </table>
             </section>
-            <button @click="goBack()" style="margin-top: 30px;">Back</button>
+
+
+            <section class="taskLayout">
+
+                <div>
+                    <h2> PENDING</h2>
+                    <template x-for="task in taskList" :key="task.Task_Id">
+                        <div class="taskCard1" x-show="task.Status == 'Pending'">
+                            <h3 x-text="task.Task"></h3>
+                            <div x-text="'Assigner : ' +  task.Assigner"></div>
+                            <div x-text="'Assignee : ' +  task.Assignee"></div>
+                            <div x-text="'Status   : ' + task.Status"></div>
+                            <div x-text="'Deadline : ' + task.Dead_line"></div>
+                            <h4><strong>Description</strong></h4>
+                            <div class=" tableDescription" x-text="task.Description"></div>
+                        </div>
+                    </template>
+                </div>
+
+                <div>
+                    <h2> IN-PROGRESS</h2>
+                    <template x-for="task in taskList" :key="task.Task_Id">
+                        <div class="taskCard2" x-show="task.Status == 'In Progress'">
+                            <h3 x-text="task.Task"></h3>
+                            <div x-text="'Assigner : ' +  task.Assigner"></div>
+                            <div x-text="'Assignee : ' +  task.Assignee"></div>
+                            <div x-text="'Status   : ' + task.Status"></div>
+                            <div x-text="'Deadline : ' + task.Dead_line"></div>
+                            <h4><strong>Description</strong></h4>
+                            <div x-text="task.Description"></div>
+                        </div>
+                    </template>
+                </div>
+
+                <div>
+                    <h2> COMPLETED</h2>
+                    <template x-for="task in taskList" :key="task.Task_Id">
+                        <div class="taskCard3" x-show="task.Status == 'Completed'">
+                            <h3 x-text="task.Task"></h3>
+                            <div x-text="'Assigner : ' +  task.Assigner"></div>
+                            <div x-text="'Assignee : ' +  task.Assignee"></div>
+                            <div x-text="'Status   : ' + task.Status"></div>
+                            <div x-text="'Deadline : ' + task.Dead_line"></div>
+                            <h4><strong>Description</strong></h4>
+                            <div class=" tableDescription" x-text="task.Description"></div>
+                        </div>
+                    </template>
+                </div>
+
+
+            </section>
+
+
+            <div>
+                <button @click="goBack()" style="margin-top: 30px;">Back</button>
+            </div>
+
         </div>
     </div>
 
@@ -561,14 +617,14 @@
 
                 <!-- Machinery Registration Number -->
                 <div class="form-group">
-                    <label for="machinery-reg_number">Machinery Registration Number:</label>
+                    <label for="machinery-reg_number">Registration Number:</label>
                     <input type="text" id="machinery-reg_number" x-model="reg_number"
                         placeholder="Enter machinery registration number" required>
                 </div>
 
                 <!-- Machinery Type -->
                 <div class="form-group">
-                    <label for="machinery-type">Machinery Type:</label>
+                    <label for="machinery-type">Type:</label>
                     <select id="machinery-type" x-model="machinery" required>
                         <option value="" disabled>Select machinery type</option>
                         <option value="Tractor">Tractor</option>
@@ -581,7 +637,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="machinery-type">Machinery condition:</label>
+                    <label for="machinery-type">Condition:</label>
                     <select id="machinery-type" x-model="condition" required>
                         <option value="" disabled>Select machinery condition</option>
                         <option value="Working">Working</option>
@@ -620,23 +676,23 @@
                                 <td x-text="machinery.Machinery"></td>
                                 <td x-text="machinery.Condition"></td>
                                 <td x-text="machinery.Issue"></td>
-                                <td class="tableData" style="display: flex; flex: 1;">
+                                <td class="tableButton" style="display: flex; flex: 1;">
 
-                                    <button class="editButton" @click="openMachineUpdate(machinery.machine_Id)"
+                                    <div class="editButton" @click="openMachineUpdate(machinery.machine_Id)"
                                         style="margin-right: 2px">
                                         <ion-icon
                                             style="font-size: 20px; font-weight: bolder; color: blue; background-color: aliceblue;"
                                             name="create-outline"></ion-icon>
-                                    </button>
+                                    </div>
 
 
 
-                                    <button class="removeButton" style="margin-left: 2px"
+                                    <div class="removeButton" style="margin-left: 2px"
                                         @click="deleteMachinery(machinery.machine_Id)">
                                         <ion-icon
                                             style="font-size: 20px; font-weight: bolder;  color: red; background-color: aliceblue;"
                                             name="trash-outline"></ion-icon>
-                                    </button>
+                                    </div>
                                 </td>
                             </tr>
                         </template>

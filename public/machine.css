@@ -33,28 +33,42 @@
 }
 
 .machinePage .form-group {
-    margin-bottom: 25px; /* Increased space between form groups */
+    margin-bottom: 25px;
+    display: flex;
+    flex: 1;
 }
 
 .machinePage .form-group label {
-    display: block;
     margin-bottom: 10px; /* Increased space below the label */
     font-weight: bold;
+    min-width: 200px;
+  
 }
 
 .machinePage .form-group input,
-.machinePage .form-group select,
-.machinePage .form-group textarea {
-    width: 100%;
+.machinePage .form-group select{
+
     padding: 12px; /* Increased padding inside input fields */
     border-radius: 5px;
     border: 1px solid #ddd;
     box-sizing: border-box;
+    min-width: 100px    ;
+    max-width: 300px;
 }
 
 .machinePage .form-group textarea {
-    resize: vertical;
-    height: 120px; /* Increased height of the textarea */
+    min-height: 100px;
+    overflow: auto;
+    box-sizing: border-box;
+    resize: none;
+    height: 200px; /* Increased height of the textarea */
+    width: 80%;
+}
+
+@media(max-width:500px){
+    .machinePage .form-group{
+        display: block;
+    }
 }
 
 /* Button Styling */
@@ -110,4 +124,42 @@
 
 .machinePage table tr:last-child td {
     border-bottom: none;
+}
+
+
+@media (max-width: 890px) {
+    .machinePage .main-container {
+        width: 95%;
+    }
+    .machinePage th,
+    .machinePage td {
+    padding: 2px; 
+    line-height: 1.2; 
+    }
+    .removeButton, .editButton{
+        font-size: 5px;
+    }
+}
+
+.editButton{
+    font-size: 25px; font-weight: bolder; color: blue; background-color: aliceblue;
+}
+
+.removeButton{
+    font-size: 25px; font-weight: bolder;  color: red; background-color: aliceblue;
+}
+
+@media (max-width: 615px) {
+
+    .machinePage th,
+    .machinePage td {
+    padding: 1px; 
+    line-height: 1; 
+    }
+    .removeButton, .editButton{
+        font-size: 20px;
+    }
+    .tableDescription{
+        display: none;
+    }
 }
