@@ -33,7 +33,7 @@
 
     <div class="loginPage" x-show="loginSection">
 
-        <header>
+        <header x-show="showSignUpForm">
             <h1>Sign Up</h1>
         </header>
 
@@ -521,8 +521,9 @@
                                 <td class="tableDescription" x-text="task.Description"></td>
                                 <td>
                                     <div class="tableButton">
-                                        <div @click=" openTaskUpdate(task.Task_Id)" style="margin-right: 2px">
-                                            <ion-icon class="editButton" name="create-outline"></ion-icon>
+                                        <div @click=" openTaskUpdate(task.Task_Id)" 
+                                        style="margin-right: 2px">
+                                        <ion-icon class="editButton" name="create-outline"></ion-icon>
                                         </div>
 
 
@@ -553,6 +554,9 @@
                             <div x-text="'Deadline : ' + task.Dead_line"></div>
                             <h4><strong>Description</strong></h4>
                             <div class=" tableDescription" x-text="task.Description"></div>
+                            <div @click=" openTaskUpdate(task.Task_Id)" style="margin-right: 2px; text-align: center;">
+                                <ion-icon class="editButton" name="create-outline"></ion-icon>
+                            </div>
                         </div>
                     </template>
                 </div>
@@ -568,6 +572,9 @@
                             <div x-text="'Deadline : ' + task.Dead_line"></div>
                             <h4><strong>Description</strong></h4>
                             <div x-text="task.Description"></div>
+                            <div @click=" openTaskUpdate(task.Task_Id)" style="margin-right: 2px; text-align: center;">
+                                <ion-icon class="editButton" name="create-outline"></ion-icon>
+                            </div>
                         </div>
                     </template>
                 </div>
@@ -583,6 +590,9 @@
                             <div x-text="'Deadline : ' + task.Dead_line"></div>
                             <h4><strong>Description</strong></h4>
                             <div class=" tableDescription" x-text="task.Description"></div>
+                            <div @click=" openTaskUpdate(task.Task_Id)" style="margin-right: 2px; text-align: center;">
+                                <ion-icon class="editButton" name="create-outline"></ion-icon>
+                            </div>
                         </div>
                     </template>
                 </div>
@@ -753,23 +763,23 @@
                             <tr>
                                 <td x-text="crop.Crop"></td>
                                 <td x-text="crop.Yield"></td>
-                                <td class="tableData" style="display: flex; flex: 1;">
+                                <td class="tableButton" style="display: flex; flex: 1;">
 
-                                    <button class="editButton" @click="openCropUpdate(crop.cropRecord_Id)"
+                                    <div class="editButton" @click="openCropUpdate(crop.cropRecord_Id)"
                                         style="margin-right: 2px">
                                         <ion-icon
                                             style="font-size: 20px; font-weight: bolder; color: blue; background-color: aliceblue;"
                                             name="create-outline"></ion-icon>
-                                    </button>
+                                    </div>
 
 
 
-                                    <button class="removeButton" style="margin-left: 2px"
+                                    <div class="removeButton" style="margin-left: 2px"
                                         @click="deleteCrop(crop.cropRecord_Id)">
                                         <ion-icon
                                             style="font-size: 20px; font-weight: bolder;  color: red; background-color: aliceblue;"
                                             name="trash-outline"></ion-icon>
-                                    </button>
+                                    </div>
                                 </td>
                             </tr>
                         </template>
@@ -836,25 +846,27 @@
 -------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 
     <div class="updatepPopUp" x-show="showPopup">
+
         <h2 x-show="taskUpdate">Edit task </h2>
         <h2 x-show="machineUpdate">Edit machine </h2>
+        <h2 x-show="cropUpdate">Edit crop </h2>
 
         <div x-show="taskUpdate">
             <!-- Task -->
-            <div class="form-group">
+            <div class="updateInputs">
                 <label for="task-name">Task:</label>
                 <input type="text" id="task-name" x-model="task" placeholder="Enter task" required>
             </div>
 
 
             <!-- Assignee -->
-            <div class="form-group">
+            <div class="updateInputs">
                 <label for="assignee-name">Assignee:</label>
                 <input type="text" id="assignee-name" x-model="assignee" placeholder="Enter assignee's name" required>
             </div>
 
             <!-- Status -->
-            <div class="form-group">
+            <div class="updateInputs">
                 <label for="status">Status:</label>
                 <select id="status" x-model="status" required>
                     <option value="" disabled>Select status</option>
@@ -865,13 +877,13 @@
             </div>
 
             <!-- Description-->
-            <div class="form-group">
+            <div style="display: flex;flex-direction: column;">
                 <label for="deadline">Description</label>
-                <input type="text" id="deadline" x-model="description" required>
+                <textarea type="text" id="deadline" x-model="description" required></textarea>
             </div>
 
             <!-- Deadline -->
-            <div class="form-group">
+            <div class="updateInputs">
                 <label for="deadline">Deadline:</label>
                 <input type="datetime-local" id="deadline" x-model="deadline" required>
             </div>
@@ -880,14 +892,14 @@
 
 
         <div class="machineUpdate" x-show="machineUpdate">
-            <div class="form-group">
+            <div class="updateInputs">
                 <label for="machinery-reg_number">Machinery Registration Number:</label>
                 <input type="text" id="machinery-reg_number" x-model="reg_number"
                     placeholder="Enter machinery registration number" required>
             </div>
 
             <!-- Machinery Type -->
-            <div class="form-group">
+            <div class="updateInputs">
                 <label for="machinery-type">Machinery Type:</label>
                 <select id="machinery-type" x-model="machinery" required>
                     <option value="" disabled>Select machinery type</option>
@@ -900,7 +912,7 @@
                 </select>
             </div>
 
-            <div class="form-group">
+            <div class="updateInputs">
                 <label for="machinery-type">Machinery condition:</label>
                 <select id="machinery-type" x-model="condition" required>
                     <option value="" disabled>Select machinery condition</option>
@@ -911,7 +923,7 @@
             </div>
 
             <!-- Issue Description -->
-            <div class="form-group">
+            <div class="updateInputs">
                 <label for="machinery-issue">Issue Description:</label>
                 <textarea id="machinery-issue" x-model="issue" placeholder="Describe the issue" required></textarea>
             </div>
@@ -922,7 +934,7 @@
         <div class="cropUpdate" x-show="cropUpdate">
             <section>
 
-                <div class="form-group">
+                <div class="updateInputs">
                     <label for="crop-type">Crop type:</label>
                     <select id="crop-type" x-model="newCropType" required>
                         <option value="" disabled>Select crop type</option>
@@ -933,7 +945,7 @@
                 </div>
 
 
-                <div class="form-group">
+                <div class="updateInputs">
                     <label for="crop-yield">Crop Yield (t):</label>
                     <input type="number" id="crop-yield" x-model="newCropYield" placeholder="Enter crop yield">
                 </div>
@@ -941,15 +953,16 @@
         </div>
 
 
-        <button class="buttons" x-show="taskUpdate"
-            @click="updateTask(task.Task_Id), showPopUp = false; taskUpdate = false ">Edit</button>
-        <button class="buttons" x-show="machineUpdate"
-            @click="updateMachinery(machinery.machine_Id); showPopUp = false; machineUpdate = false">Edit</button>
-        <button class="buttons" x-show="cropUpdate"
-            @click="updateCrop(); cropUpdate = false; showPopUp = false;">Edit</button>
-        <button class="buttons"
-            @click="showPopup = false; taskUpdate = false; machineUpdate = false; cropUpdate = false">Cancel</button>
-
+        <div class="updateButtons">
+            <button class="buttons" x-show="taskUpdate"
+                @click="updateTask(task.Task_Id), showPopUp = false; taskUpdate = false ">Edit</button>
+            <button class="buttons" x-show="machineUpdate"
+                @click="updateMachinery(machinery.machine_Id); showPopUp = false; machineUpdate = false">Edit</button>
+            <button class="buttons" x-show="cropUpdate"
+                @click="updateCrop(); cropUpdate = false; showPopUp = false;">Edit</button>
+            <button class="buttons"
+                @click="showPopup = false; taskUpdate = false; machineUpdate = false; cropUpdate = false">Cancel</button>
+        </div>
 
 
     </div>
@@ -965,44 +978,44 @@
         </header>
 
         <main class="container">
-            <section class="intro">
-                <h2>Background</h2>
-                <p>
-                    Crop production is vital for food security, farmer income, and rural livelihoods. However,
-                    farmers
-                    face significant challenges such as unpredictable weather, soil degradation, pest infestations,
-                    and
-                    water scarcity, all of which can impact crop productivity. Current tools often provide
-                    fragmented or
-                    outdated information, lacking the comprehensive guidance necessary for effective
-                    decision-making.
-                </p>
-                <p>
-                    In response to these challenges, Agri-Crop Insight aims to develop a solution that integrates
-                    real-time data with advanced analytics. Our goal is to provide accurate, timely, and actionable
-                    crop
-                    recommendations, empowering farmers to optimize yields and contribute to enhanced food security
-                    and
-                    economic resilience in South Africa. This initiative reflects our commitment to advancing
-                    agricultural sustainability and improving the livelihoods of farmers in the face of climate
-                    change.
-                </p>
-            </section>
+            <div>
+                <div>
+                    <h2>Background</h2>
+                    <p>
+                        Crop production is vital for food security, farmer income, and rural livelihoods. However,
+                        farmers
+                        face significant challenges such as unpredictable weather, soil degradation, pest infestations,
+                        and
+                        water scarcity, all of which can impact crop productivity. Current tools often provide
+                        fragmented or
+                        outdated information, lacking the comprehensive guidance necessary for effective
+                        decision-making.
+                    </p>
+                    <p>
+                        In response to these challenges, Agri-Crop Insight aims to develop a solution that integrates
+                        real-time data with advanced analytics. Our goal is to provide accurate, timely, and actionable
+                        crop
+                        recommendations, empowering farmers to optimize yields and contribute to enhanced food security
+                        and
+                        economic resilience in South Africa. This initiative reflects our commitment to advancing
+                        agricultural sustainability and improving the livelihoods of farmers in the face of climate
+                        change.
+                    </p>
+                </div>
 
-            <section class="application">
-                <h2>Application Overview</h2>
-                <p>
-                    Our application harnesses real-time data and machine learning to improve crop yield predictions
-                    and
-                    offer tailored crop recommendations specifically for South African farmers. By analyzing factors
-                    such as water availability and historical yield trends, we provide actionable insights that help
-                    optimize farming practices and enhance both food security and farmers' livelihoods.
-                </p>
-            </section>
+                <div>
+                    <h2>Application Overview</h2>
+                    <p>
+                        Our application harnesses real-time data and machine learning to improve crop yield predictions
+                        and
+                        offer tailored crop recommendations specifically for South African farmers. By analyzing factors
+                        such as water availability and historical yield trends, we provide actionable insights that help
+                        optimize farming practices and enhance both food security and farmers' livelihoods.
+                    </p>
+                </div>
 
-            <section class="functionality">
 
-                <section class="instructions">
+                <div>
                     <h2>How to Use Agri-Crop Insight</h2>
                     <ol>
                         <li><strong>Register:</strong> Create an account to access the platform and start using its
@@ -1016,9 +1029,9 @@
                             to
                             ensure optimal performance and maintenance.</li>
                     </ol>
-                </section>
+                </div>
 
-                <section class="target-users">
+                <div>
                     <h2>Who Can Use It</h2>
                     <p>
                         Agri-Crop Insight is designed for farmers who seek to enhance their crop production and make
@@ -1027,9 +1040,9 @@
                         achieving
                         better outcomes and greater economic stability.
                     </p>
-                </section>
+                </div>
 
-                <section class="instructions">
+                <div>
                     <h2>Key Functions</h2>
                     <ul>
                         <li>Collects and processes real-time data from multiple sources.</li>
@@ -1043,7 +1056,8 @@
                             security
                             and integrity.</li>
                     </ul>
-                </section>
+                </div>
+            </div>
         </main>
         <button @click="goBack()">Back</button>
     </div>

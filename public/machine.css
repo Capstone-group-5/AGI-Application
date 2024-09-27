@@ -1,13 +1,16 @@
 /* Main container */
+
+
 .machinePage .main-container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
     background-color: white;
+    min-height: calc(100vh - 40px);
 }
 
 /* Header */
-.machinePage header {
+.machinePage header, h1, h2, h3 {
     text-align: center;
     margin-bottom: 30px; 
     color: white;
@@ -96,10 +99,6 @@
     margin-bottom: 40px; /* Increased space below the table section */
 }
 
-.machinePage .table-section h2 {
-    margin-bottom: 25px; /* Increased space below the section heading */
-    color: #333;
-}
 
 .machinePage table {
     width: 100%;

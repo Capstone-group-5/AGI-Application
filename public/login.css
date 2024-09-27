@@ -5,6 +5,7 @@ body{
     background-repeat: no-repeat; 
     background-size: cover; 
     background-attachment: fixed;
+    height: 100%;
 }
 
 /* Container for the Login Page */
@@ -32,6 +33,7 @@ body{
     margin-left: 1.5em;
     margin-right: 1.5em;
     width: 80%;
+    min-height: calc(100vh - 40px);
 }
 
 /* Form Group Styling */
@@ -66,7 +68,7 @@ body{
     padding: 10px 15px;
     cursor: pointer;
     font-size: 16px;
-    width: 100%;
+    max-width: 300px;
     margin-bottom: 10px;
 }
 
@@ -115,6 +117,29 @@ body{
     z-index: 1000;
     font-weight: bolder;
     color: white;
+    width: 60%;
+}
+
+.updateInputs{
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.updatepPopUp button{
+    background-color: white;
+    font-weight: bolder;
+    border: 1px solid white;
+    border-radius: 5px;
+    margin-top: 10px;
+    margin-bottom: 2px;
+
+}
+
+.updateButtons{
+    display: flex;
+    justify-content: space-between;
 }
 
 /* Footer Styling */
