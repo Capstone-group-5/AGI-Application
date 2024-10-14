@@ -97,7 +97,7 @@ document.addEventListener('alpine:init', () => {
 
             async fetchAddProfile() {
                 try {
-                    const response = axios.post(`//profile/add_new_user/`,
+                    const response = axios.post(`/profile/add_new_user/`,
                         {
                             Organisation: this.organisation,
                             UserName: this.userName,

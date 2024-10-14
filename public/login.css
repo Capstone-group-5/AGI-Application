@@ -1,7 +1,7 @@
 body{
     margin-left: 1.5em;
     margin-right: 1.5em;
-    background-image: url('/images/803470.jpg'); 
+    background-image: url('./images/803470.jpg'); 
     background-repeat: no-repeat; 
     background-size: cover; 
     background-attachment: fixed;
