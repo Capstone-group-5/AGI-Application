@@ -97,7 +97,7 @@ document.addEventListener('alpine:init', () => {
 
             async fetchAddProfile() {
                 try {
-                    const response = axios.post(`/profile/add_new_user/`,
+                    const response = axios.post(`//profile/add_new_user/`,
                         {
                             Organisation: this.organisation,
                             UserName: this.userName,
@@ -180,7 +180,7 @@ document.addEventListener('alpine:init', () => {
                         this.cPassword = this.userPassword;
                         this.cUserName = this.userName;
                         this.cSurname = this.userSurname;
-                        this.cUserRole = this.User_Role;
+                        this.cUserRole = this.userRole;
                     } else {
                         alert('Failed to update profile');
                     }
@@ -695,7 +695,6 @@ document.addEventListener('alpine:init', () => {
                     });
 
                     if (response.status === 200) {
-                        alert('Task added successfully');
                         this.clearFields(); // Clear input fields
                         await this.fetchTasks(); 
                     } else {
@@ -751,7 +750,6 @@ document.addEventListener('alpine:init', () => {
                     });
 
                     if (response.status === 200) {
-                        alert('Task updated successfully');
                     } else {
                         alert('Failed to update task');
                     }
@@ -768,7 +766,6 @@ document.addEventListener('alpine:init', () => {
                     const response = await axios.delete(`/tasks/Delete_task/${this.cOrg}/${taskID}`);
 
                     if (response.status === 200) {
-                        alert('Task deleted successfully');
                     } else {
                         alert('Failed to delete task');
                     }
@@ -835,7 +832,6 @@ document.addEventListener('alpine:init', () => {
                     });
 
                     if (response.status === 200) {
-                        alert('Machinery added successfully');
                         this.machineryList.push({
                             organisation: this.cOrg,
                             machinery: this.machinery,
@@ -889,7 +885,6 @@ document.addEventListener('alpine:init', () => {
                     });
 
                     if (response.status === 200) {
-                        alert('Machinery updated successfully');
                     } else {
                         alert('Failed to update machinery');
                     }
@@ -914,7 +909,6 @@ document.addEventListener('alpine:init', () => {
                     const response = await axios.delete(`/machines/Delete_machine/${this.cOrg}/${machineID}`);
 
                     if (response.status === 200) {
-                        alert('Machinery deleted successfully');
                         this.loadMachine;
                     } else {
                         alert('Failed to delete machinery');
@@ -1000,7 +994,6 @@ document.addEventListener('alpine:init', () => {
                     });
 
                     if (response.status === 200) {
-                        alert('Crop added successfully');
                         this.clearCropFields();
                         this.loadCrops();
                         await this.fetchCrops();
@@ -1022,7 +1015,6 @@ document.addEventListener('alpine:init', () => {
                     });
 
                     if (response.status === 200) {
-                        alert('Crop updated successfully');
                         await this.fetchCrops();
                     } else {
                         alert('Failed to update crop');
@@ -1046,7 +1038,6 @@ document.addEventListener('alpine:init', () => {
                     const response = await axios.delete(`/crops/Delete_crop/${cropId}`);
 
                     if (response.status === 200) {
-                        alert('Crop deleted successfully');
                         this.loadCrops();
                     } else {
                         alert('Failed to delete crop');
