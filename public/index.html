@@ -955,13 +955,13 @@
 
         <div class="updateButtons">
             <button class="buttons" x-show="taskUpdate"
-                @click="updateTask(task.Task_Id), showPopUp = false; taskUpdate = false ">Edit</button>
+                @click="updateTask(task.Task_Id), showPopup = false; taskUpdate = false ">Edit</button>
             <button class="buttons" x-show="machineUpdate"
-                @click="updateMachinery(machinery.machine_Id); showPopUp = false; machineUpdate = false">Edit</button>
+                @click="updateMachinery(machinery.machine_Id); showPopup = false; machineUpdate = false">Edit</button>
             <button class="buttons" x-show="cropUpdate"
-                @click="updateCrop(); cropUpdate = false; showPopUp = false;">Edit</button>
+                @click="updateCrop(); cropUpdate = false; showPopup = false;">Edit</button>
             <button class="buttons"
-                @click="showPopup = false; taskUpdate = false; machineUpdate = false; cropUpdate = false">Cancel</button>
+                @click="cancel()">Cancel</button>
         </div>
 
 

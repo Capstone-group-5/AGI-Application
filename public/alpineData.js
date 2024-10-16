@@ -1110,6 +1110,17 @@ document.addEventListener('alpine:init', () => {
                 this[page] = true;
                 localStorage.setItem('currentPage', page);
             },
+
+           async cancel(){
+
+            await this.loadTasks();
+            await this.loadMachine();
+            await this.loadCrops();
+            this.showPopup = false; 
+            this.taskUpdate = false; 
+            this.machineUpdate = false; 
+            this.cropUpdate = false
+            },
             /* init
  -------------------------------------------------------------------------------------------------------------------------------------------------------- */
 
