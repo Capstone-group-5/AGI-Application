@@ -914,18 +914,26 @@ document.addEventListener('alpine:init', () => {
                 this.showPopup = true;
                 this.machineUpdate = true;
                 this.selectedMachine = machineId;
+
+                const machine = this.machineryList.find(machine => machine.Task_Id === machineId);
+
+                this.machinery = machine.Machinery,
+                this.reg_number = machine.reg_number,
+                this.Condition = machine.Condition,
+                this.Issue = machine.Issue,
+
             },
 
 
             // Delete machinery
             async deleteMachinery(machineID) {
 
-
+                if (confirm('Are you sure?')){
                 try {
                     const response = await axios.delete(`/machines/Delete_machine/${this.cOrg}/${machineID}`);
 
                     if (response.status === 200) {
-                        this.loadMachine;
+                        await this.loadMachine();
                     } else {
                         alert('Failed to delete machinery');
                     }
@@ -933,6 +941,9 @@ document.addEventListener('alpine:init', () => {
                     console.error('Error deleting machinery:', err.message);
                     alert('An error occurred while deleting the machinery.');
                 }
+            } else {
+                console.log('Cancelled by user')
+            }
             },
 
 
