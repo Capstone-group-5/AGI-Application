@@ -776,8 +776,12 @@ document.addEventListener('alpine:init', () => {
                 try {
                     const response = await axios.delete(`/tasks/Delete_task/${this.cOrg}/${taskId}`);
 
-                    if (response.status === 200) {
-                        this.loadTasks();
+                   if (response.status === 200) {
+                    if (confirm('Are you sure?')) {
+                        this.loadTasks(); 
+                    } else {
+                        console.log('Task deletion cancelled');  
+                    }
                     } else {
                         alert('Failed to delete task');
                     }
@@ -788,7 +792,7 @@ document.addEventListener('alpine:init', () => {
             },
 
             // Clear input fields
-            clearFields() {
+            clearFields() { 
                 this.task = '';
                 this.assigner = '';
                 this.assignee = '';
