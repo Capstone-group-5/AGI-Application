@@ -734,6 +734,10 @@ document.addEventListener('alpine:init', () => {
                 this.showPopup = true;
                 this.taskUpdate = true;
                 this.selectedTask = taskId;
+
+                // Find the selected task from the taskList
+                const task = this.taskList.find(task => task.Task_Id === taskId);
+
                 // Populate the form fields with the selected task's details
                 this.task = task.Task;
                 this.assignee = task.Assignee;
@@ -747,7 +751,7 @@ document.addEventListener('alpine:init', () => {
 
                 try {
                     const response = await axios.put(`/tasks/Update_task/${this.cOrg}/${this.selectedTask}`, {
-                        Task: task,
+                        Task: this.task,
                         Assigner: this.cUserName,
                         Assignee: this.assignee,
                         Status: this.status,
