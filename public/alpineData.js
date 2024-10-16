@@ -917,11 +917,15 @@ document.addEventListener('alpine:init', () => {
 
                 const machine = this.machineryList.find(machine => machine.Task_Id === machineId);
 
-                this.machinery = machine.Machinery;
-                this.reg_number = machine.reg_number;
-                this.Condition = machine.Condition;
-                this.Issue = machine.Issue;
-
+                if (machine) {
+                    this.machinery = machine.Machinery || ''; // Default to an empty string if undefined
+                    this.reg_number = machine.reg_number || ''; 
+                    this.Condition = machine.Condition || ''; 
+                    this.Issue = machine.Issue || ''; 
+                } else {
+                    console.error(`Machine with ID ${machineId} not found.`);
+                    alert('Selected machine not found.');
+                }
             },
 
 
