@@ -736,18 +736,17 @@ document.addEventListener('alpine:init', () => {
                 this.selectedTask = taskId;
 
                 // Find the selected task from the taskList
-                const task = this.taskList.find(task => task.Task_Id === taskId);
+                const tasks = this.taskList.find(task => task.Task_Id === taskId);
 
                 // Populate the form fields with the selected task's details
-                this.task = task.Task;
-                this.assignee = task.Assignee;
-                this.status = task.Status;
-                this.deadline = task.Dead_line;
-                this.description = task.Description;
+                this.task = tasks.Task;
+                this.assignee = tasks.Assignee;
+                this.status = tasks.Status;
+                this.deadline = tasks.Dead_line;
+                this.description = tasks.Description;
             },
 
             async updateTask() {
-
 
                 try {
                     const response = await axios.put(`/tasks/Update_task/${this.cOrg}/${this.selectedTask}`, {
@@ -772,23 +771,24 @@ document.addEventListener('alpine:init', () => {
 
             // Delete a task
             async deleteTask(taskId) {
-
-                try {
-                    const response = await axios.delete(`/tasks/Delete_task/${this.cOrg}/${taskId}`);
-
-                   if (response.status === 200) {
-                    if (confirm('Are you sure?')) {
-                        this.loadTasks(); 
-                    } else {
-                        console.log('Task deletion cancelled');  
+                
+                if (confirm('Are you sure?')) {
+                    try {
+                        const response = await axios.delete(`/tasks/Delete_task/${this.cOrg}/${taskId}`);
+                        
+                        if (response.status === 200) {
+                            this.loadTasks(); 
+                        } else {
+                            console.log('Failed to delete task');
+                        }
+                    } catch (err) {
+                        console.error('Error deleting task:', err.message);
+                        alert('An error occurred while deleting the task.');
                     }
-                    } else {
-                        alert('Failed to delete task');
-                    }
-                } catch (err) {
-                    console.error('Error deleting task:', err.message);
-                    alert('An error occurred while deleting the task.');
+                } else {
+                    console.log('Task deletion cancelled');
                 }
+                
             },
 
             // Clear input fields
