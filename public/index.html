@@ -680,7 +680,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <template x-for="(machinery, index) in machineryList" :key="index">
+                        <template x-for="machinery in machineryList" :key="machinery.machine_Id">
                             <tr>
                                 <td x-text="machinery.reg_number"></td>
                                 <td x-text="machinery.Machinery"></td>
@@ -688,7 +688,7 @@
                                 <td x-text="machinery.Issue"></td>
                                 <td class="tableButton" style="display: flex; flex: 1;">
 
-                                    <div class="editButton" @click="openMachineUpdate(machinery.machine_Id)"
+                                    <div class="editButton" @click="openMachineUpdate()"
                                         style="margin-right: 2px">
                                         <ion-icon
                                             style="font-size: 20px; font-weight: bolder; color: blue; background-color: aliceblue;"
