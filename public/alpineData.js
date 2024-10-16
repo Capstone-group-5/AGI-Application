@@ -917,10 +917,10 @@ document.addEventListener('alpine:init', () => {
 
                 const machine = this.machineryList.find(machine => machine.Task_Id === machineId);
 
-                this.machinery = machine.Machinery,
-                this.reg_number = machine.reg_number,
-                this.Condition = machine.Condition,
-                this.Issue = machine.Issue,
+                this.machinery = machine.Machinery;
+                this.reg_number = machine.reg_number;
+                this.Condition = machine.Condition;
+                this.Issue = machine.Issue;
 
             },
 
