@@ -736,7 +736,7 @@ document.addEventListener('alpine:init', () => {
                 this.selectedTask = taskId;
 
                 // Find the selected task from the taskList
-                const tasks = this.taskList.find(task => task.Task_Id === taskId);
+                const tasks = this.taskList.find(tasks => tasks.Task_Id === taskId);
 
                 // Populate the form fields with the selected task's details
                 this.task = tasks.Task;
