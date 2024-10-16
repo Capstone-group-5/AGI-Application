@@ -756,6 +756,7 @@ document.addEventListener('alpine:init', () => {
                     });
 
                     if (response.status === 200) {
+                        this.loadTasks();
                     } else {
                         alert('Failed to update task');
                     }
@@ -772,6 +773,7 @@ document.addEventListener('alpine:init', () => {
                     const response = await axios.delete(`/tasks/Delete_task/${this.cOrg}/${taskId}`);
 
                     if (response.status === 200) {
+                        this.loadTasks();
                     } else {
                         alert('Failed to delete task');
                     }
