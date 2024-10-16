@@ -365,7 +365,7 @@ document.addEventListener('alpine:init', () => {
 
                 try {
                     // Make the POST request to your Flask API
-                    const response = await axios.post(`${flaskApiUrl}/api/ml/predict`, dataPayload);
+                    const response = await axios.post(`https://agi-machine-learning.onrender.com/api/ml/predict`, dataPayload);
 
                     // Handle the API response and store the predicted yield
                     this.predictedYield = response.data.predicted_yield;
@@ -579,7 +579,7 @@ document.addEventListener('alpine:init', () => {
             
                 try {
                     // Make the POST request to your Flask API for the first region/crop
-                    const response1 = await axios.post(`${flaskApiUrl}/api/ml/predict`, dataPayload1);
+                    const response1 = await axios.post(`https://agi-machine-learning.onrender.com/api/ml/predict`, dataPayload1);
 
                     // Handle the API response and store the predicted yield
                     this.predictedYield1 = response1.data.predicted_yield;
@@ -619,7 +619,7 @@ document.addEventListener('alpine:init', () => {
             
                 try {
                     // Make the POST request to your Flask API for the second region/crop
-                    const response2 = await axios.post(`${flaskApiUrl}/api/ml/predict`, dataPayload2);
+                    const response2 = await axios.post(`https://agi-machine-learning.onrender.com/api/ml/predict`, dataPayload2);
             
                     // Handle the API response and store the predicted yield
                     this.predictedYield2 = response2.data.predicted_yield;
