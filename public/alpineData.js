@@ -733,8 +733,12 @@ document.addEventListener('alpine:init', () => {
             openTaskUpdate(taskId) {
                 this.showPopup = true;
                 this.taskUpdate = true;
-
                 this.selectedTask = taskId;
+
+                // Find the selected task from the taskList
+                const task = this.taskList.find(task => task.Task_Id === taskId);
+
+                // Populate the form fields with the selected task's details
                 this.task = task.Task;
                 this.assignee = task.Assignee;
                 this.status = task.Status;
