@@ -550,7 +550,7 @@ document.addEventListener('alpine:init', () => {
                         break;
                 }
                 console.log('Yield production 2', this.yieldProduction2);
-                
+
             },
 
 
@@ -576,7 +576,7 @@ document.addEventListener('alpine:init', () => {
                     CROP_Wheat: this.cropWheat1,
                     HUMIDITY_TEMPERATURE: this.humidity1 * this.temperature1
                 };
-            
+
                 try {
                     // Make the POST request to your Flask API for the first region/crop
                     const response1 = await axios.post(`https://agi-machine-learning.onrender.com/api/ml/predict`, dataPayload1);
@@ -593,7 +593,7 @@ document.addEventListener('alpine:init', () => {
                     return 0; // Return 0 in case of an error
                 }
             },
-            
+
             async submitAnalysisData2() {
                 // Prepare the data payload for the second region/crop
                 const dataPayload2 = {
@@ -616,11 +616,11 @@ document.addEventListener('alpine:init', () => {
                     CROP_Wheat: this.cropWheat2,
                     HUMIDITY_TEMPERATURE: this.humidity2 * this.temperature2
                 };
-            
+
                 try {
                     // Make the POST request to your Flask API for the second region/crop
                     const response2 = await axios.post(`https://agi-machine-learning.onrender.com/api/ml/predict`, dataPayload2);
-            
+
                     // Handle the API response and store the predicted yield
                     this.predictedYield2 = response2.data.predicted_yield;
 
@@ -645,7 +645,7 @@ document.addEventListener('alpine:init', () => {
                 this.predictedYield1 = await this.submitAnalysisData1();
                 this.predictedYield2 = await this.submitAnalysisData2();
 
-  
+
                 this.comparisonResult = true
             },
 
@@ -696,7 +696,7 @@ document.addEventListener('alpine:init', () => {
 
                     if (response.status === 200) {
                         this.clearFields(); // Clear input fields
-                        await this.fetchTasks(); 
+                        await this.fetchTasks();
                     } else {
                         alert('Failed to add task');
                     }
@@ -733,7 +733,13 @@ document.addEventListener('alpine:init', () => {
             openTaskUpdate(taskId) {
                 this.showPopup = true;
                 this.taskUpdate = true;
+
                 this.selectedTask = taskId;
+                this.task = task.Task;
+                this.assignee = task.Assignee;
+                this.status = task.Status;
+                this.deadline = task.Dead_line;
+                this.description = task.Description;
             },
 
             async updateTask() {
@@ -1116,7 +1122,7 @@ document.addEventListener('alpine:init', () => {
 
                     // Automatically log in the user
                     this.loginSection = false;
-             
+
                 };
 
                 await this.loadTasks();
