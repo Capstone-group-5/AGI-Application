@@ -730,14 +730,10 @@ document.addEventListener('alpine:init', () => {
 
             // Update an existing task
 
-            openTaskUpdate(taskId) {
+            openTaskUpdate() {
                 this.showPopup = true;
                 this.taskUpdate = true;
-                this.selectedTask = taskId;
-
-                // Find the selected task from the taskList
-                const task = this.taskList.find(task => task.Task_Id === taskId);
-
+                this.selectedTask = task.Task_Id;
                 // Populate the form fields with the selected task's details
                 this.task = task.Task;
                 this.assignee = task.Assignee;
@@ -770,10 +766,10 @@ document.addEventListener('alpine:init', () => {
             },
 
             // Delete a task
-            async deleteTask(taskID) {
+            async deleteTask() {
 
                 try {
-                    const response = await axios.delete(`/tasks/Delete_task/${this.cOrg}/${taskID}`);
+                    const response = await axios.delete(`/tasks/Delete_task/${this.cOrg}/${this.selectedTask}`);
 
                     if (response.status === 200) {
                     } else {
