@@ -521,14 +521,14 @@
                                 <td class="tableDescription" x-text="task.Description"></td>
                                 <td>
                                     <div class="tableButton">
-                                        <div @click=" openTaskUpdate()" 
+                                        <div @click=" openTaskUpdate(task.Task_Id)" 
                                         style="margin-right: 2px">
                                         <ion-icon class="editButton" name="create-outline"></ion-icon>
                                         </div>
 
 
 
-                                        <div style="margin-left: 2px" @click="deleteTask()">
+                                        <div style="margin-left: 2px" @click="deleteTask(task.Task_Id)">
                                             <ion-icon class="removeButton" name="trash-outline"></ion-icon>
                                         </div>
                                     </div>
