@@ -739,7 +739,7 @@ document.addEventListener('alpine:init', () => {
                 const tasks = this.taskList.find(tasks => tasks.Task_Id === taskId);
 
                 // Populate the form fields with the selected task's details
-                this.task = tasks.Task;
+                task = tasks.Task;
                 this.assignee = tasks.Assignee;
                 this.status = tasks.Status;
                 this.deadline = tasks.Dead_line;
@@ -1065,6 +1065,8 @@ document.addEventListener('alpine:init', () => {
 
             // Delete a crop record
             async deleteCrop(cropId) {
+
+                if (confirm('Are you sure!')){
                 try {
                     const response = await axios.delete(`/crops/Delete_crop/${cropId}`);
 
@@ -1077,6 +1079,9 @@ document.addEventListener('alpine:init', () => {
                     console.error('Error deleting crop:', err.message);
                     alert('An error occurred while deleting the crop.');
                 }
+            } else{
+                console.log('Cancelled by user')
+            }
             },
 
             // Clear crop input fields
