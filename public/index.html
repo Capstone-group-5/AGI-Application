@@ -261,13 +261,17 @@
 
             </div>
 
-            <div class="predictedYield" x-show="yieldShow > 0">
+            <div>
 
-                <!--  <h2>Predicted Yield: <span x-text="yieldProduction"></span></h2> -->
+                <div x-show="isLoading" class="spinner-container">
+                    <div class="spinner"></div>
+                </div>
+                
+                <div class="predictedYield" x-show="yieldShow > 0">
+                    <label for="yield">Predicted Yield:</label>
+                    <input type="text" x-model="yieldProduction" readonly style="text-align: center;">
 
-                <label for="yield">Predicted Yield:</label>
-                <input type="text" x-model="yieldProduction" readonly style="text-align: center;">
-
+                </div>
             </div>
 
             <div class="comparison-section">
@@ -409,14 +413,27 @@
                 <div x-show="comparisonResult">
                     <h2>Comparison Result</h2>
                     <div class="comparisonResults">
+
                         <div>
+                            <div x-show="isLoading1" class="spinner-container1">
+                                <div class="spinner1"></div>
+                            </div>
+                            <div x-show="yieldShow1 > 0 && isLoading2 = false">
                             <label for="yield1">Prediction 1</label>
                             <input type="text" id="yield1" readonly x-model="region1 + ': ' + yieldProduction1">
                         </div>
+                        </div>
                         <div>
+                            <div x-show="isLoading2" class="spinner-container2">
+                                <div class="spinner2"></div>
+                            </div>
+                            <div x-show="yieldShow2 > 0 && isLoading2 = false">
                             <label for="yield2">Prediction 2</label>
                             <input type="text" id="yield2" readonly x-model="region2 + ': ' + yieldProduction2">
                         </div>
+                        </div>
+
+
                     </div>
                 </div>
             </div>
@@ -521,9 +538,8 @@
                                 <td class="tableDescription" x-text="task.Description"></td>
                                 <td>
                                     <div class="tableButton">
-                                        <div @click=" openTaskUpdate(task.Task_Id)" 
-                                        style="margin-right: 2px">
-                                        <ion-icon class="editButton" name="create-outline"></ion-icon>
+                                        <div @click=" openTaskUpdate(task.Task_Id)" style="margin-right: 2px">
+                                            <ion-icon class="editButton" name="create-outline"></ion-icon>
                                         </div>
 
 
@@ -688,8 +704,7 @@
                                 <td x-text="machinery.Issue"></td>
                                 <td class="tableButton" style="display: flex; flex: 1;">
 
-                                    <div class="editButton" @click="openMachineUpdate()"
-                                        style="margin-right: 2px">
+                                    <div class="editButton" @click="openMachineUpdate()" style="margin-right: 2px">
                                         <ion-icon
                                             style="font-size: 20px; font-weight: bolder; color: blue; background-color: aliceblue;"
                                             name="create-outline"></ion-icon>
@@ -855,7 +870,7 @@
             <!-- Task -->
             <div class="updateInputs">
                 <label for="task-name">Task:</label>
-                <input type="text" id="task-name" x-model="task" placeholder="Enter task" required>
+                <input type="text" id="task-name" x-model="utask" placeholder="Enter task" required>
             </div>
 
 
@@ -960,8 +975,7 @@
                 @click="updateMachinery(machinery.machine_Id); showPopup = false; machineUpdate = false">Edit</button>
             <button class="buttons" x-show="cropUpdate"
                 @click="updateCrop(); cropUpdate = false; showPopup = false;">Edit</button>
-            <button class="buttons"
-                @click="cancel()">Cancel</button>
+            <button class="buttons" @click="cancel()">Cancel</button>
         </div>
 
 
@@ -1020,7 +1034,8 @@
                     <ol>
                         <li><strong>Register:</strong> Create an account to access the platform and start using its
                             features.</li>
-                        <li><strong>Crop Analysis:</strong> Input details environmental factors within your locaiton to recieve</li>
+                        <li><strong>Crop Analysis:</strong> Input details environmental factors within your locaiton to
+                            recieve</li>
                         <li><strong>Task Appointment:</strong> Schedule and manage tasks related to crop management
                             through the app.</li>
                         <li><strong>Machinery Analysis:</strong> Track and analyze the condition of your machinery
@@ -1047,8 +1062,10 @@
                         <li>Employs machine learning algorithms to analyze data patterns and generate accurate
                             forecasts
                             of crop yields.</li>
-                        <li>Leverages data-driven technology to offer features that streamline key operations, including task management, machinery management, and crop yield tracking</li>
-                        <li>Utilizes SQL to create a database, incorporating technologies to ensure data security and integrity</li>
+                        <li>Leverages data-driven technology to offer features that streamline key operations, including
+                            task management, machinery management, and crop yield tracking</li>
+                        <li>Utilizes SQL to create a database, incorporating technologies to ensure data security and
+                            integrity</li>
                     </ul>
                 </div>
                 <button @click="goBack()">Back</button>

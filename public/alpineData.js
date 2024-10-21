@@ -265,6 +265,7 @@ document.addEventListener('alpine:init', () => {
             yieldProduction: null,
             yieldShow: 0,
             fieldSize: '',
+            isLoading: false,
 
 
 
@@ -339,7 +340,20 @@ document.addEventListener('alpine:init', () => {
                 // Prepare the region and crop data
                 await this.updateRegion();
                 await this.updateAnalysisCrop();
-
+                this.yieldShow = 0;
+                this.isLoading = true;
+                if (
+                    !this.humidity || !this.rainfall || !this.temperature ||
+                    !this.regionAngola && !this.regionBotswana && !this.regionEswatini &&
+                    !this.regionLesotho && !this.regionMalawi && !this.regionMozambique &&
+                    !this.regionSouthAfrica && !this.regionTanzania && !this.regionZambia &&
+                    !this.regionZimbabwe && !this.cropMaize && !this.cropRice && !this.cropWheat
+                ) {
+                    alert("Please fill in all required inputs.");
+                    this.isLoading = false; // Stop loading spinner
+                    return; // Stop function execution
+                }
+                
 
                 // Prepare the data payload for the API
                 const dataPayload = {
@@ -375,6 +389,9 @@ document.addEventListener('alpine:init', () => {
                     this.unitOfMeasurement();
                 } catch (error) {
                     console.error("Error during prediction:", error.response?.data || error.message);
+                } finally {
+                    // Stop loading spinner
+                    this.isLoading = false;
                 }
 
             },
@@ -414,6 +431,8 @@ document.addEventListener('alpine:init', () => {
             selectedYear1: '',
             yieldProduction1: null,
             fieldSize1: '',
+            isLoading1: false,
+            yieldShow1: 0,
 
             region2: '',
             cropType2: '',
@@ -439,6 +458,8 @@ document.addEventListener('alpine:init', () => {
             selectedYear2: '',
             yieldProduction2: null,
             fieldSize2: '',
+            isLoading2: false,
+            yieldShow2: 0,
 
             updateRegion1() {
                 this.regionAngola1 = 0;
@@ -556,6 +577,20 @@ document.addEventListener('alpine:init', () => {
 
             async submitAnalysisData1() {
                 // Prepare the data payload for the first region/crop
+                this.isLoading1 = true;
+                if (
+                    !this.humidity1 || !this.rainfall1 || !this.temperature1 ||
+                    !this.regionAngola1 && !this.regionBotswana1 && !this.regionEswatini1 &&
+                    !this.regionLesotho1 && !this.regionMalawi1 && !this.regionMozambique1 &&
+                    !this.regionSouthAfrica1 && !this.regionTanzania1 && !this.regionZambia1 &&
+                    !this.regionZimbabwe1 && !this.cropMaize1 && !this.cropRice1 && !this.cropWheat1
+                ) {
+                    alert("Please fill in all required inputs for Region 1.");
+                    this.isLoading1 = false; // Stop loading spinner
+                    return; // Stop function execution
+                }
+               
+
                 const dataPayload1 = {
                     HUMIDITY: this.humidity1,
                     RAINFALL: this.rainfall1,
@@ -591,11 +626,29 @@ document.addEventListener('alpine:init', () => {
                 } catch (error) {
                     console.error("Error during prediction for Region 1:", error.response?.data || error.message);
                     return 0; // Return 0 in case of an error
+                } finally {
+                    // Stop loading spinner
+                    this.isLoading1 = false;
                 }
             },
 
             async submitAnalysisData2() {
                 // Prepare the data payload for the second region/crop
+                this.isLoading2 = true;
+                if (
+                    !this.humidity2 || !this.rainfall2 || !this.temperature2 ||
+                    !this.regionAngola2 && !this.regionBotswana2 && !this.regionEswatini2 &&
+                    !this.regionLesotho2 && !this.regionMalawi2 && !this.regionMozambique2 &&
+                    !this.regionSouthAfrica2 && !this.regionTanzania2 && !this.regionZambia2 &&
+                    !this.regionZimbabwe2 && !this.cropMaize2 && !this.cropRice2 && !this.cropWheat2
+                ) {
+                    alert("Please fill in all required inputs for Region 2.");
+                    this.isLoading2 = false; // Stop loading spinner
+                    return; // Stop function execution
+                }            
+                
+
+
                 const dataPayload2 = {
                     HUMIDITY: this.humidity2,
                     RAINFALL: this.rainfall2,
@@ -631,6 +684,9 @@ document.addEventListener('alpine:init', () => {
                 } catch (error) {
                     console.error("Error during prediction for Region 2:", error.response?.data || error.message);
                     return 0; // Return 0 in case of an error
+                }finally {
+                    // Stop loading spinner
+                    this.isLoading2 = false;
                 }
             },
 
@@ -645,8 +701,11 @@ document.addEventListener('alpine:init', () => {
                 this.predictedYield1 = await this.submitAnalysisData1();
                 this.predictedYield2 = await this.submitAnalysisData2();
 
-
+                if (this.yieldShow1 > 0 && this.yieldShow2 > 0 ){
                 this.comparisonResult = true
+                } else {
+                    this.comparisonResult = false
+                }
             },
 
             openAnalysis() {
@@ -661,6 +720,7 @@ document.addEventListener('alpine:init', () => {
 -------------------------------------------------------------------------------------------------------------------------------------------------------- */
 
             task: '',
+            utask:'',
             assigner: this.cUserName,
             assignee: '',
             description: '',
@@ -739,7 +799,7 @@ document.addEventListener('alpine:init', () => {
                 const tasks = this.taskList.find(tasks => tasks.Task_Id === taskId);
 
                 // Populate the form fields with the selected task's details
-                task = tasks.Task;
+                this.utask = tasks.Task;
                 this.assignee = tasks.Assignee;
                 this.status = tasks.Status;
                 this.deadline = tasks.Dead_line;
@@ -750,7 +810,7 @@ document.addEventListener('alpine:init', () => {
 
                 try {
                     const response = await axios.put(`/tasks/Update_task/${this.cOrg}/${this.selectedTask}`, {
-                        Task: this.task,
+                        Task: this.utask,
                         Assigner: this.cUserName,
                         Assignee: this.assignee,
                         Status: this.status,
