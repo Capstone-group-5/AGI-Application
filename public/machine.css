@@ -95,6 +95,12 @@
     margin-bottom: 40px; /* Increased space below the table section */
 }
 
+@media (max-width:560px){
+    .machinePage .table-section {
+        font-size: xx-small;
+    }
+}
+
 
 .machinePage table {
     width: 100%;

@@ -284,12 +284,24 @@ h4{
 
 @media (min-width: 650px) and (max-width: 720px){
     .taskLayout{
-        font-size: small;
+        font-size: smaller;
     }
 }
 
 @media (max-width:649px){
     .taskLayout{
         display: block;
+    }
+}
+
+@media (max-width: 690px){
+    .tablSection{
+        font-size: smaller;
+    }
+}
+
+@media (max-width: 486px){
+    .tablSection{
+        font-size: xx-small;
     }
 }
